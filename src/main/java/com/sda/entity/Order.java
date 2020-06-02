@@ -6,14 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name = "`order`")
 public class Order {
 
     @Id
@@ -23,7 +21,5 @@ public class Order {
     private int amount;
     @ManyToOne
     private User user;
-    @ManyToMany(mappedBy = "orders")
-    private Set<Product> products = new HashSet<>();
 
 }

@@ -9,31 +9,31 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PersonService {
+public class UserService {
     @Autowired
     private UserRepository repository;
 
-    public User savePerson(User user) {
+    public User saveUser(User user) {
         return repository.save(user);
     }
 
-    public List<User> savePerson(List<User> products) {
-        return repository.saveAll(products);
+    public List<User> saveUser(List<User> users) {
+        return repository.saveAll(users);
     }
 
-    public List<User> getPersons() {
+    public List<User> getUser() {
         return repository.findAll();
     }
 
-    public User getPersonById(int id) {
+    public User getUserById(int id) {
         return repository.findById(id).orElse(null);
     }
 
-    public User getPersonByEmail(String email) {
+    public User getUserByEmail(String email) {
         return repository.findByEmail(email);
     }
 
-    public String deletePerson(int id) {
+    public String deleteUser(int id) {
         repository.deleteById(id);
         return "product removed !! " + id;
     }

@@ -1,18 +1,10 @@
-//package com.sda.entity;
-//
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
-//
-//import javax.persistence.Entity;
-//import javax.persistence.Table;
-//
-//@Data
-//@AllArgsConstructor
-//@NoArgsConstructor
-//@Entity
-//@Table(name = "cart")
-//public class Cart {
-//
-//
-//}
+package com.sda.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class Cart {
+
+    private List<ProductItem> productList = new ArrayList<>();
+}
