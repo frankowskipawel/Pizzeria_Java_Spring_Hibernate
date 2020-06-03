@@ -29,14 +29,20 @@ public class UserService {
         return repository.findById(id).orElse(null);
     }
 
-    public User getUserByEmail(String email) {
-        return repository.findByEmail(email);
-    }
+//    public User getUserByEmail(String email) {
+//        return repository.findByEmail(email);
+//    }
 
     public String deleteUser(int id) {
         repository.deleteById(id);
         return "product removed !! " + id;
     }
+
+
+    public List<User> findUsersByEmail(String email) {
+        return repository.findUsersByEmail(email);
+    }
+
 
 //    public User updatePerson(User user) {
 //        User existingProduct = repository.findById(user.getId()).orElse(null);
