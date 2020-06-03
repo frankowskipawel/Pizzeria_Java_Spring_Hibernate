@@ -2,6 +2,8 @@ package com.sda.controller;
 
 import com.sda.entity.Address;
 import com.sda.entity.User;
+import com.sda.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,38 +20,28 @@ import java.util.List;
 @RequestMapping("/")
 public class RegisterController {
 
-//    @GetMapping("/register")
-//    public String register(Model model){
-//
-//        return "/register";
-//    }
+    @Autowired
+    private UserService userService;
+
+
 
     @GetMapping("/register")
     public String showForm(Model model) {
         User user = new User();
-//        user.setAddress(new Address());
-        Address address = new Address();
         model.addAttribute("user", user);
-
-
-//        List<String> listProfession = Arrays.asList("Developer", "Tester", "Architect");
-//        model.addAttribute("listProfession", listProfession);
 
         return "register";
     }
 
 
     @PostMapping("/register")
-    public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser,
-                            Model model) {
+    public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
         System.out.println(user);
 
         if (bindingResultUser.hasErrors()) {
-//            List<String> listProfession = Arrays.asList("Developer", "Tester", "Architect");
-//            model.addAttribute("listProfession", listProfession);
-
             return "register";
         } else {
+            userService.saveUser(user);
             return "home";
         }
     }

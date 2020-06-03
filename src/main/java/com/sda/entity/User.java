@@ -27,7 +27,7 @@ public class User {
     @NotBlank(message = "{notempty}")
     @Size(min = 3, max = 50, message = "{numberOfChar_3_50}")
     private String lastName;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @Valid
     private Address address;
     @NotBlank(message = "{notempty}")
