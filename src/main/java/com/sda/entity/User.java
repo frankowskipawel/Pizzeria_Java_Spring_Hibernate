@@ -4,6 +4,7 @@ package com.sda.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -19,19 +20,21 @@ public class User {
     @Id
     @GeneratedValue
     private int id;
-    @NotBlank(message = "Pole nie może być puste")
-    @Size(min = 3, max = 50, message = "Ilość znaków musi zawierać się pomiędzy 3 a 50")
+
+    @NotBlank(message = "{notempty}")
+    @Size(min = 3, max = 50, message = "{numberOfChar_3_50}")
     private String firstName;
-    @NotBlank(message = "Pole nie może być puste")
-    @Size(min = 3, max = 50, message = "Ilość znaków musi zawierać się pomiędzy 3 a 50")
+    @NotBlank(message = "{notempty}")
+    @Size(min = 3, max = 50, message = "{numberOfChar_3_50}")
     private String lastName;
     @ManyToOne
+    @Valid
     private Address address;
-    @NotBlank(message = "Pole nie może być puste")
-    @Email(message = "Niepoprawny format email")
+    @NotBlank(message = "{notempty}")
+    @Email(message = "{incorectFormat}")
     private String email;
-    @NotBlank(message = "Pole nie może być puste")
-    @Size(min = 6, message = "Hasło musi mieć min 6 znaków")
+    @NotBlank(message = "{notempty}")
+    @Size(min = 6, message = "{incorrectPassword}")
     private String password;
 
 

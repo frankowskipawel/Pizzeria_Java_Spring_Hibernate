@@ -27,8 +27,10 @@ public class RegisterController {
     @GetMapping("/register")
     public String showForm(Model model) {
         User user = new User();
-        user.setAddress(new Address());
+//        user.setAddress(new Address());
+        Address address = new Address();
         model.addAttribute("user", user);
+
 
 //        List<String> listProfession = Arrays.asList("Developer", "Tester", "Architect");
 //        model.addAttribute("listProfession", listProfession);
@@ -38,11 +40,11 @@ public class RegisterController {
 
 
     @PostMapping("/register")
-    public String submitForm(@Valid @ModelAttribute("user") User user,
-                             BindingResult bindingResult, Model model) {
+    public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser,
+                            Model model) {
         System.out.println(user);
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResultUser.hasErrors()) {
 //            List<String> listProfession = Arrays.asList("Developer", "Tester", "Architect");
 //            model.addAttribute("listProfession", listProfession);
 

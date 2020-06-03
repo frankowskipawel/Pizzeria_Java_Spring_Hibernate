@@ -30,14 +30,26 @@
 <!--            <input type="street" class="form-control" placeholder="Wpisz ulicę" id="street">-->
 <!--        </div>-->
 
+<!--        <div class="form-group">-->
+<!--            <label for="postalCode">Kod pocztowy: </label>-->
+<!--            <input type="postalCode" class="form-control" placeholder="Wpisz kod pocztowy" id="postalCode">-->
+<!--        </div>-->
+
         <div class="form-group">
-            <label for="postalCode">Kod pocztowy:</label>
-            <input type="postalCode" class="form-control" placeholder="Wpisz kod pocztowy" id="postalCode">
+            <label>Kod pocztowy: </label><br><span style="color:red" th:if="${#fields.hasErrors('address.postalCode')}" th:errors="*{address.postalCode}"></span>
+            <input type="text" class="form-control" placeholder="Wpisz kod pocztowy" th:field="*{address.postalCode}"/>
         </div>
+
+<!--        <div class="form-group">-->
+<!--            <label for="city">Miasto:</label>-->
+<!--            <input type="city" class="form-control" placeholder="Wpisz miasto/miejscowość" id="city">-->
+<!--        </div>-->
+
         <div class="form-group">
-            <label for="city">Miasto:</label>
-            <input type="city" class="form-control" placeholder="Wpisz miasto/miejscowość" id="city">
+            <label>Miasto: </label><br><span style="color:red" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></span>
+            <input type="text" class="form-control" placeholder="Wpisz miasto" th:field="*{address.city}"/>
         </div>
+
         <div class="form-group">
             <label>Email: </label><br><span style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             <input type="email" class="form-control" placeholder="Wpisz email" th:field="*{email}"/>
