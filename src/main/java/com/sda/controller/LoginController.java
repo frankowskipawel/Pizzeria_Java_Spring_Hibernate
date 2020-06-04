@@ -2,7 +2,6 @@ package com.sda.controller;
 
 import com.sda.entity.User;
 import com.sda.service.UserService;
-import com.sda.utils.ControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,13 +16,11 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private ControllerUtils controllerUtils;
 
 
     @GetMapping("/login")
     public String showForm(Model model, @ModelAttribute("error") String error) {
-        controllerUtils.addAttrCurrentUser(model);
+
         User user = new User();
         model.addAttribute("user", user);
         if (error != null && error.equals("true")) {
@@ -34,7 +31,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
-        controllerUtils.addAttrCurrentUser(model);
+
         User foundUser = userService.findUsersByEmail(user.getEmail());
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
 

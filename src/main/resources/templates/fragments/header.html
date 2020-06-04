@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecuri">
 <body>
 <header th:fragment="header">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -26,8 +26,11 @@
                 <span class="nav-link" style="color:white" th:text="#{phone}"></span>
             </li>
             <li class="nav-item">
-<!--                th:utext="|${error} &lt;br/&gt;|"-->
-                <span th:if="${currentUser} != null" class="nav-link" th:text="|(${currentUser.email})|">id</span>
+
+                <!--current email-->
+                <div sec:authorize="isAuthenticated()">
+                    <span class="nav-link" sec:authentication="name"></span></div>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/register">Zarejestruj</a>
