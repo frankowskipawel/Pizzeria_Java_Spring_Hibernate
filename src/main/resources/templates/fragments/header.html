@@ -21,23 +21,34 @@
             </li>
         </ul>
 
-        <ul class="nav navbar-nav ml-auto" >
+        <ul class="nav navbar-nav ml-auto">
             <li class="nav-item">
                 <span class="nav-link" style="color:white" th:text="#{phone}"></span>
             </li>
             <li class="nav-item">
-
-                <!--current email-->
-                <div sec:authorize="isAuthenticated()">
-                    <span class="nav-link" sec:authentication="name"></span></div>
-
+                <div class="nav-link" sec:authorize="isAuthenticated()">
+                    (<span sec:authentication="name"></span>)
+                </div>
             </li>
-            <li class="nav-item">
+
+<!--            <div class="nav-link" sec:authorize!="isAuthenticated()">-->
+            <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/register">Zarejestruj</a>
             </li>
-            <li class="nav-item">
+                <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/login">Zaloguj</a>
             </li>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="/logout">Wyloguj</a>
+            </li>
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="/myAcount">Moje Konto</a>
+            </li>
+<!--            </div>-->
+
+
+
         </ul>
     </nav>
     <div class="jumbotron text-center" style="background-image: url(images/pizza_home.jpg); ">
