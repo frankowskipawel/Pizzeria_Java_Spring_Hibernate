@@ -4,7 +4,7 @@
 <header th:fragment="header">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <!-- Brand/logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="/home">
             <img src="images/pizza_logo.png" alt="logo" style="width:40px;">
         </a>
 
@@ -21,9 +21,13 @@
             </li>
         </ul>
 
-        <ul class="nav navbar-nav ml-auto">
+        <ul class="nav navbar-nav ml-auto" >
             <li class="nav-item">
                 <span class="nav-link" style="color:white" th:text="#{phone}"></span>
+            </li>
+            <li class="nav-item">
+<!--                th:utext="|${error} &lt;br/&gt;|"-->
+                <span th:if="${currentUser} != null" class="nav-link" th:text="|(${currentUser.email})|">id</span>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/register">Zarejestruj</a>

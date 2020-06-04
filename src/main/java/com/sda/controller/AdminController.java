@@ -1,6 +1,5 @@
 package com.sda.controller;
 
-import com.sda.service.UserService;
 import com.sda.utils.ControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,21 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
-public class HomeController {
+public class AdminController {
 
-    @Autowired
-    private UserService userService;
     @Autowired
     private ControllerUtils controllerUtils;
 
-    @GetMapping("/home")
-    public String home(Model model) {
+    @GetMapping("/admin")
+    public String getAdmin(Model model){
         controllerUtils.addAttrCurrentUser(model);
-
-        return "home";
+        return "admin";
     }
-
-
-
-
 }

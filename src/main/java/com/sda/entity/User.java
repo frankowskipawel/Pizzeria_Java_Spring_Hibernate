@@ -9,8 +9,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
-
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +21,7 @@ public class User {
 
     @Id
     @GeneratedValue
+    @Column(name = "user_id")
     private int id;
 
     @NotBlank(message = "{notempty}")
@@ -43,5 +45,9 @@ public class User {
     @Size(min = 6, message = "{incorrectPassword}")
     private String password;
 
+    private Boolean active;
 
+    @ManyToMany(cascade = CascadeType.MERGE)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 }

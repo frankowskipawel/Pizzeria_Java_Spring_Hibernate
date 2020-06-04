@@ -2,6 +2,7 @@ package com.sda.controller;
 
 import com.sda.entity.User;
 import com.sda.service.UserService;
+import com.sda.utils.ControllerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +20,12 @@ public class RegisterController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private ControllerUtils controllerUtils;
 
     @GetMapping("/register")
     public String showForm(Model model) {
+        controllerUtils.addAttrCurrentUser(model);
         User user = new User();
         model.addAttribute("user", user);
         return "register";
@@ -30,12 +33,13 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
-        System.out.println(user);
-
+        controllerUtils.addAttrCurrentUser(model);
         if (bindingResultUser.hasErrors()) {
             return "register";
         } else {
-            if (userService.findUsersByEmail(user.getEmail()).isEmpty()) {
+            User foundUser = userService.findUsersByEmail(user.getEmail());
+            if (foundUser==null) {
+                user.setActive(true);
                 userService.saveUser(user);
                 return "home";
             } else {
