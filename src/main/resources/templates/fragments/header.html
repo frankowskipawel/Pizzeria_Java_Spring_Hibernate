@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecuri">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
 <body>
 <header th:fragment="header">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -27,27 +27,33 @@
             </li>
             <li class="nav-item">
                 <div class="nav-link" sec:authorize="isAuthenticated()">
-                    (<span sec:authentication="name"></span>)
+                    <span sec:authentication="name"></span>
+                    <span sec:authorize="hasAuthority('ADMIN')">
+                        - admin
+                    </span>
                 </div>
             </li>
-
-<!--            <div class="nav-link" sec:authorize!="isAuthenticated()">-->
             <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/register">Zarejestruj</a>
             </li>
-                <li class="nav-item" sec:authorize="isAnonymous()">
+            <li class="nav-item" sec:authorize="isAnonymous()">
                 <a class="nav-link" href="/login">Zaloguj</a>
             </li>
+            </li>
+
+            <li class="nav-item">
+                <span sec:authorize="hasAuthority('ADMIN')">
+                    <a class="nav-link" href="/admin/home">Panel Administratora</a>
+
+                </span>
+            </li>
+
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="/myAcount">Moje Konto</a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/logout">Wyloguj</a>
             </li>
-            <li class="nav-item" sec:authorize="isAuthenticated()">
-                <a class="nav-link" href="/myAcount">Moje Konto</a>
-            </li>
-<!--            </div>-->
-
-
 
         </ul>
     </nav>

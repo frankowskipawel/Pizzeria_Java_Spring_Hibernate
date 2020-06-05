@@ -1,6 +1,8 @@
 package com.sda.controller;
 
+import com.sda.entity.Role;
 import com.sda.entity.User;
+import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.HashSet;
 
 @Controller
 @RequestMapping("/")
@@ -19,6 +22,8 @@ public class RegisterController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/register")
     public String showForm(Model model) {
@@ -35,6 +40,12 @@ public class RegisterController {
             User foundUser = userService.findUsersByEmail(user.getEmail());
             if (foundUser==null) {
                 user.setActive(true);
+//                Role role = new Role();
+//                role.setRole("ADMIN");
+//                roleRepository.save(role);
+                Role role = roleRepository.findByRole("USER");
+                user.setRoles(new HashSet<>());
+                user.getRoles().add(role);
                 userService.saveUser(user);
                 return "home";
             } else {
