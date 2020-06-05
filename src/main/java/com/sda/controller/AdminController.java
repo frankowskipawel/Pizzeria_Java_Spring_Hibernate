@@ -1,6 +1,5 @@
 package com.sda.controller;
 
-import com.sda.entity.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,14 +15,25 @@ import java.util.*;
 public class AdminController {
 
 
+    @GetMapping("/admin/home")
+    public String getAdmin(Model model) {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        Set<GrantedAuthority> authoritiesList = new HashSet<>();
+//                authoritiesList.addAll(auth.getAuthorities());
+//        System.out.println("role = "+authoritiesList);
+        model.addAttribute("selectedMenu", "home");
+        return "/admin/home";
+    }
 
-    @GetMapping("/admin")
-    public String getAdmin(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Set<GrantedAuthority> authoritiesList = new HashSet<>();
-                authoritiesList.addAll(auth.getAuthorities());
-        System.out.println("role = "+authoritiesList);
+    @GetMapping("/admin/addEmployee")
+    public String addEmployee(Model model) {
+        model.addAttribute("selectedMenu", "addEmployee");
+        return "/admin/addEmployee";
+    }
 
-        return "admin";
+    @GetMapping("/admin/employeesList")
+    public String employeesList(Model model) {
+        model.addAttribute("selectedMenu", "employeesList");
+        return "/admin/employeesList";
     }
 }

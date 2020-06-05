@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<!--header-->
+<div th:insert="fragments/header :: header"></div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div th:insert="fragments/menu :: menu"></div>
+
+
+        </div>
+        <div class="col-sm-9">.col
+
+            <span th:text="${active}">id</span>
+
+        </div>
+
+    </div>
+
+
+</div>
+<!--footer-->
+<div th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>
+
+

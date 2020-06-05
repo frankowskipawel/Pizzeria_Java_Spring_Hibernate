@@ -1,0 +1,31 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<menu th:fragment="menu">
+<h3>Panel Administratora</h3>
+<ul class="nav nav-pills flex-column">
+    <li class="nav-item">
+            <a th:if="${selectedMenu=='home'}" class="nav-link active" href="/admin/home">Home</a>
+            <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Home</a>
+    </li>
+    <br>
+    <p>Pracownicy</p>
+
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='addEmployee'}" class="nav-link active" href="/admin/addEmployee">Dodaj</a>
+        <a th:unless="${selectedMenu=='addEmployee'}" class="nav-link" href="/admin/addEmployee">Dodaj</a>
+    </li>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='employeesList'}" class="nav-link active" href="/admin/employeesList">Lista pracowników</a>
+        <a th:unless="${selectedMenu=='employeesList'}" class="nav-link" href="/admin/employeesList">Lista pracowników</a>
+<!--        <a class="nav-link" href="#">Lista pracowników</a>-->
+    </li>
+    <br>
+    <p>Produkty</p>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Dodaj</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#">Lista produktów</a>
+    </li>
+</ul>
+<!--    <span th:text="${active}">id</span>-->
+</menu>
