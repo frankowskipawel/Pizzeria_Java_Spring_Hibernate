@@ -1,15 +1,14 @@
 package com.sda.entity;
 
 
+import com.sda.validator.EmailExistConstrains;
 import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 import java.util.Set;
 
 @Builder
@@ -40,6 +39,7 @@ public class User {
     @Column(length = 250, unique=true)
     @NotBlank(message = "{notempty}")
     @Email(message = "{incorectFormat}")
+    @EmailExistConstrains(message = "{emailExist}")
     private String email;
 
     @NotBlank(message = "{notempty}")

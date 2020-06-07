@@ -37,22 +37,9 @@ public class RegisterController {
         if (bindingResultUser.hasErrors()) {
             return "register";
         } else {
-            User foundUser = userService.findUsersByEmail(user.getEmail());
-            if (foundUser==null) {
-                user.setActive(true);
-//                Role role = new Role();
-//                role.setRole("ADMIN");
-//                roleRepository.save(role);
-                Role role = roleRepository.findByRole("USER");
-                user.setRoles(new HashSet<>());
-                user.getRoles().add(role);
-                userService.saveUser(user);
+
                 return "home";
-            } else {
-                System.out.println("Podany email juz istnieje");
-                bindingResultUser.rejectValue("email", "error.user", "Podany email jest powiązany z innym kontem");
-                return "register";
-            }
+
         }
     }
 }
