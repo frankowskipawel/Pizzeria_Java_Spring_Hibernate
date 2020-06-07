@@ -9,15 +9,16 @@
 
 <div class="container">
     <h2>Logowanie</h2><br>
-    <form action="/login" method="post" th:object="${user}">
+    <form action="/login" method="post" th:object="${user}" class="was-validated">
         <div class="form-group">
-            <span style="color:red" th:if="${error}" th:utext="|${error} &lt;br/&gt;|"></span>
+            <span style="color:red;font-size:12px" th:if="${error}" th:utext="|${error} &lt;br/&gt;|"></span>
             <label for="email">Email:</label>
             <input type="email" th:field="*{email}" class="form-control" placeholder="Wpisz email" id="email">
         </div>
+
         <div class="form-group">
             <label for="password">Hasło:</label>
-            <input type="password" th:field="*{password}" class="form-control" placeholder="Wpisz hasło" id="password">
+            <input type="password" th:field="*{password}" class="form-control" placeholder="Wpisz hasło" id="password" required>
         </div>
         <div class="form-group form-check">
             <label class="form-check-label">
