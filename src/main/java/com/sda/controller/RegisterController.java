@@ -1,6 +1,5 @@
 package com.sda.controller;
 
-import com.sda.entity.Role;
 import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
@@ -37,9 +36,11 @@ public class RegisterController {
         if (bindingResultUser.hasErrors()) {
             return "register";
         } else {
-
-                return "home";
-
+            user.setRoles(new HashSet<>());
+            user.getRoles().add(roleRepository.findByRole("USER"));
+            System.out.println(user);
+            userService.saveUser(user);
+            return "home";
         }
     }
 }
