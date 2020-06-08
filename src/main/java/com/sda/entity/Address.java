@@ -29,4 +29,10 @@ public class Address {
     @Size(min = 3, max = 50, message = "{numberOfChar_3_50}")
     @NotBlank(message = "{notempty}")
     private String city;
+
+    @Override
+    public String toString() {
+        return
+                street + ", " + postalCode + " " + city;
+    }
 }
