@@ -5,6 +5,8 @@ import com.sda.entity.Role;
 import com.sda.entity.User;
 import com.sda.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -87,4 +89,10 @@ public class UserService implements UserDetailsService {
 ////        existingProduct.setPrice(product.getPrice());
 //        return repository.save(existingProduct);
 //    }
+
+    public Page<User> getAllUsersPaginated(Pageable pageable){
+        return repository.findAll(pageable);
+    }
+
+
 }
