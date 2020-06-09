@@ -6,9 +6,6 @@ import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -52,8 +49,9 @@ public class AdminController {
         } else {
             user.setRoles(new HashSet<>());
             user.getRoles().add(roleRepository.findByRole("ADMIN"));
+            user.setActive(true);
             userService.saveUser(user);
-            return "/admin/employeesList";
+            return "redirect:/admin/employeesList";
         }
 
     }
@@ -64,26 +62,39 @@ public class AdminController {
         model.addAttribute("selectedMenu", "employeesList");
 
         int currentPage = page.orElse(1);
-        Page<User> portalUserPage = userService.getAllUsersPaginated(PageRequest.of(currentPage - 1, 3));
+        Page<User> userPage = userService.getAllUsersPaginated(PageRequest.of(currentPage - 1, 3));
 
-        model.addAttribute("userPage", portalUserPage);
-        int totalPages = portalUserPage.getTotalPages();
+        model.addAttribute("pages", userPage);
+        int totalPages = userPage.getTotalPages();
         if (totalPages > 0) {
             List<Integer> pageNumbers = new ArrayList<>();
             for (int i = 1; i <= totalPages; i++) {
                 pageNumbers.add(i);
             }
             model.addAttribute("pageNumbers", pageNumbers);
-            model.addAttribute("currentPage",page.get());
+            model.addAttribute("currentPage",page.orElse(1));
         }
-//        System.out.println(portalUserPage.get().findFirst());
-//        return "users";
 
-
-
-
-
-//        model.addAttribute("users",userService.getUser());
         return "/admin/employeesList";
+    }
+
+    @GetMapping("/admin/editEmployee")
+    public String editEmployee(Model model, @RequestParam("userId") Optional<Integer> userId){
+        User user = userService.getUserById(userId.get());
+        model.addAttribute("user", user);
+        return "admin/editEmployee";
+    }
+
+    @PostMapping("/admin/editEmployee")
+    public String editEmployeePost(Model model, User user){
+        User foundUser = userService.getUserById(user.getId());
+        foundUser.setFirstName(user.getFirstName());
+        foundUser.setLastName(user.getLastName());
+        foundUser.setAddress(user.getAddress());
+        model.addAttribute("user", foundUser);
+        userService.saveUser(foundUser);
+        System.out.println(user);
+        return "redirect:/admin/employeesList";
+
     }
 }

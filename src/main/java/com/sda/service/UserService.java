@@ -51,7 +51,7 @@ public class UserService implements UserDetailsService {
         return repository.findAll();
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Integer id) {
         return repository.findById(id).orElse(null);
     }
 
