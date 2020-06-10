@@ -14,13 +14,9 @@
 
         </div>
         <div class="col-sm-9">
-            <h3><span th:text="Edycja"></span></h3>
-            <h5><span th:text="${user.email}"></span></h5><br>
-            <h7><span th:text="${'id: '+user.id+' '}"></span></h7>
 
 
-
-            <form action="#" th:action="@{/admin/editEmployee}" method="post" th:object="${user}" class="needs-validated" novalidate>
+            <form action="#" th:action="@{/admin/employeeAdd}" method="post" th:object="${user}" class="needs-validated" novalidate>
 
                 <div class="form-group">
                     <label for="firstName">Imię: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
@@ -45,9 +41,17 @@
                     <label>Miasto: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('address.city')}" th:errors="*{address.city}"></span>
                     <input type="text" class="form-control" placeholder="Wpisz miasto" th:field="*{address.city}"/>
                 </div>
-                <input type="hidden" class="form-control"  th:field="*{id}"/>
 
-                <button type="submit" class="btn btn-primary">Zapisz</button>
+                <div class="form-group">
+                    <label>Email: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    <input type="email" class="form-control" placeholder="Wpisz email" th:field="*{email}"/>
+                </div>
+                <div class="form-group">
+                    <label>Hasło: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                    <input type="password" class="form-control" placeholder="Wpisz hasło" th:field="*{password}"/>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Załóż konto</button>
             </form>
 
 

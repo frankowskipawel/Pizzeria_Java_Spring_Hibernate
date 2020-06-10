@@ -37,7 +37,13 @@ public class RegisterController {
             return "register";
         } else {
             user.setRoles(new HashSet<>());
-            user.getRoles().add(roleRepository.findByRole("USER"));
+            if (userService.getUser().isEmpty()) { //first registered user will be ADMIN
+                user.setActive(true);
+                user.getRoles().add(roleRepository.findByRole("ADMIN"));
+            } else {
+                user.setActive(true);
+                user.getRoles().add(roleRepository.findByRole("USER"));
+            }
             System.out.println(user);
             userService.saveUser(user);
             return "home";

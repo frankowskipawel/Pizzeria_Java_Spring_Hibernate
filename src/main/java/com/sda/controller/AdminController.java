@@ -34,18 +34,18 @@ public class AdminController {
         return "/admin/home";
     }
 
-    @GetMapping("/admin/addEmployee")
-    public String addEmployee(Model model) {
+    @GetMapping("/admin/employeeAdd")
+    public String employeeAdd(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("selectedMenu", "addEmployee");
-        return "/admin/addEmployee";
+        model.addAttribute("selectedMenu", "employeeAdd");
+        return "admin/employeeAdd";
     }
 
-    @PostMapping("/admin/addEmployee")
-    public String addEmloyoyee(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model){
+    @PostMapping("/admin/employeeAdd")
+    public String employeeAdd(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
         if (bindingResultUser.hasErrors()) {
-            return "/admin/addEmployee";
+            return "admin/employeeAdd";
         } else {
             user.setRoles(new HashSet<>());
             user.getRoles().add(roleRepository.findByRole("ADMIN"));
@@ -72,21 +72,30 @@ public class AdminController {
                 pageNumbers.add(i);
             }
             model.addAttribute("pageNumbers", pageNumbers);
-            model.addAttribute("currentPage",page.orElse(1));
+            model.addAttribute("currentPage", page.orElse(1));
         }
 
         return "/admin/employeesList";
     }
 
-    @GetMapping("/admin/editEmployee")
-    public String editEmployee(Model model, @RequestParam("userId") Optional<Integer> userId){
-        User user = userService.getUserById(userId.get());
-        model.addAttribute("user", user);
-        return "admin/editEmployee";
+    @PostMapping("/admin/employeesList")
+    public String changePassword(Model model, User user, @RequestParam("page") Optional<Integer> page) {
+        System.out.println("++++" + user);
+        User foundUser = userService.getUserById(user.getId());
+        foundUser.setPassword(user.getPassword());
+        userService.saveUser(foundUser);
+        return "redirect:/admin/employeesList";
     }
 
-    @PostMapping("/admin/editEmployee")
-    public String editEmployeePost(Model model, User user){
+    @GetMapping("/admin/employeeEdit")
+    public String employeeEdit(Model model, @RequestParam("userId") Optional<Integer> userId) {
+        User user = userService.getUserById(userId.get());
+        model.addAttribute("user", user);
+        return "admin/employeeEdit";
+    }
+
+    @PostMapping("/admin/employeeEdit")
+    public String employeeEditPost(Model model, User user) {
         User foundUser = userService.getUserById(user.getId());
         foundUser.setFirstName(user.getFirstName());
         foundUser.setLastName(user.getLastName());

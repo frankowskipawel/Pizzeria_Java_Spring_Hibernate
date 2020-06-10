@@ -10,8 +10,8 @@
     <p>Pracownicy</p>
 
     <li class="nav-item">
-        <a th:if="${selectedMenu=='addEmployee'}" class="nav-link active" href="/admin/addEmployee">Dodaj</a>
-        <a th:unless="${selectedMenu=='addEmployee'}" class="nav-link" href="/admin/addEmployee">Dodaj</a>
+        <a th:if="${selectedMenu=='employeeAdd'}" class="nav-link active" href="/admin/employeeAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='employeeAdd'}" class="nav-link" href="/admin/employeeAdd">Dodaj</a>
     </li>
     <li class="nav-item">
         <a th:if="${selectedMenu=='employeesList'}" class="nav-link active" href="/admin/employeesList">Lista pracowników</a>
