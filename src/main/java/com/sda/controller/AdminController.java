@@ -6,6 +6,9 @@ import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -88,7 +91,20 @@ public class AdminController {
     }
 
     @GetMapping("/admin/employeeEdit")
-    public String employeeEdit(Model model, @RequestParam("userId") Optional<Integer> userId) {
+    public String employeeEdit(Model model, @RequestParam(value = "userId", required = false) Optional<Integer> userId, @RequestParam(value = "delete", required = false) Optional<Integer> deleteUserId) {
+        if (deleteUserId.isPresent()) {
+            if (userService.getUser().size() <= 1) {
+                return "redirect:/admin/employeesList";
+            }
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            if (auth.getName().equals(userService.getUserById(deleteUserId.get()).getEmail())) {
+                userService.deleteUser(deleteUserId.get());
+                return "redirect:/logout";
+            }
+            userService.deleteUser(deleteUserId.get());
+            return "redirect:/admin/employeesList";
+        }
+
         User user = userService.getUserById(userId.get());
         model.addAttribute("user", user);
         return "admin/employeeEdit";

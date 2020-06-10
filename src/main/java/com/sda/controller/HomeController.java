@@ -27,6 +27,7 @@ public class HomeController {
         Set<GrantedAuthority> authoritiesList = new HashSet<>();
         authoritiesList.addAll(auth.getAuthorities());
         System.out.println("role = "+authoritiesList);
+        System.out.println(auth.getName());
 
         return "home";
     }

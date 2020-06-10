@@ -16,18 +16,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import javax.persistence.RollbackException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository repository;
 
-    private BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
     @Transactional
@@ -90,9 +86,11 @@ public class UserService implements UserDetailsService {
 //        return repository.save(existingProduct);
 //    }
 
-    public Page<User> getAllUsersPaginated(Pageable pageable){
+    public Page<User> getAllUsersPaginated(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
-
+    public Optional<User> findById(Integer id) {
+        return repository.findById(id);
+    }
 }

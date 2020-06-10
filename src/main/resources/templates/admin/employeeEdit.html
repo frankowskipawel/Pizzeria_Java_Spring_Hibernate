@@ -20,6 +20,7 @@
                     data-target="#passwordModal" class="btn pull-right middle btn-primary"><span
                     class="glyphicon glyphicon-pencil"></span> Zmień hasło
             </button>
+            <a class="btn btn-primary btn" th:href="@{/admin/employeeEdit(delete=${user.id})}">Usuń pracownika</a>
             <br><br>
 
             <form action="#" th:action="@{/admin/employeeEdit}" method="post" th:object="${user}"
