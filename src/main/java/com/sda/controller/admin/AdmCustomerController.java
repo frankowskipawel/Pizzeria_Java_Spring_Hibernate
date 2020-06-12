@@ -11,11 +11,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +31,7 @@ public class AdmCustomerController {
     Environment environment;
 
     @GetMapping("/customersList")
-    public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page){
+    public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page) {
 
         model.addAttribute("selectedMenu", "customersList");
 
@@ -47,7 +46,7 @@ public class AdmCustomerController {
             for (int i = 1; i <= totalPages; i++) {
                 pageNumbers.add(i);
             }
-            model.addAttribute("list","customersList");
+            model.addAttribute("list", "customersList");
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", page.orElse(1));
         }
@@ -76,17 +75,20 @@ public class AdmCustomerController {
     }
 
     @PostMapping("/customerEdit")
-    public String employeeEditPost(Model model, User user) {
-        model.addAttribute("selectedMenu", "customersList");
-        User foundUser = userService.getUserById(user.getId());
-        foundUser.setFirstName(user.getFirstName());
-        foundUser.setLastName(user.getLastName());
-        foundUser.setAddress(user.getAddress());
-        model.addAttribute("user", foundUser);
-        userService.updateUser(foundUser);
-        System.out.println(user);
-        return "redirect:/admin/customersList";
-
+    public String employeeEditPost(Model model, @Valid @ModelAttribute("user") User user, BindingResult bindingResultUser) {
+        if (bindingResultUser.hasErrors()) {
+            return "admin/employeeEdit";
+        } else {
+            model.addAttribute("selectedMenu", "customersList");
+            User foundUser = userService.getUserById(user.getId());
+            foundUser.setFirstName(user.getFirstName());
+            foundUser.setLastName(user.getLastName());
+            foundUser.setAddress(user.getAddress());
+            model.addAttribute("user", foundUser);
+            userService.updateUser(foundUser);
+            System.out.println(user);
+            return "redirect:/admin/customersList";
+        }
     }
 
 }

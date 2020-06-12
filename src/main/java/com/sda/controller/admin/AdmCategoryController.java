@@ -1,13 +1,11 @@
 package com.sda.controller.admin;
 
 import com.sda.entity.Category;
+
 import com.sda.entity.User;
-import com.sda.repository.CategoryRepository;
 import com.sda.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
+
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashSet;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -33,7 +31,7 @@ public class AdmCategoryController {
 
 
     @GetMapping("categoryAdd")
-    public String addCategory(Model model){
+    public String addCategory(Model model) {
         model.addAttribute("selectedMenu", "categoryAdd");
         model.addAttribute("category", new Category());
         return "admin/categoryAdd";
@@ -50,9 +48,9 @@ public class AdmCategoryController {
     }
 
     @GetMapping("/categoriesList")
-    public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page){
+    public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page) {
 
-        model.addAttribute("selectedMenu", "categoryList");
+        model.addAttribute("selectedMenu", "categoriesList");
 
         int currentPage = page.orElse(1);
 
@@ -65,10 +63,40 @@ public class AdmCategoryController {
             for (int i = 1; i <= totalPages; i++) {
                 pageNumbers.add(i);
             }
-            model.addAttribute("list","categoriesList");
+            model.addAttribute("list", "categoriesList");
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", page.orElse(1));
         }
         return "admin/categoriesList";
+    }
+
+    @GetMapping("categoryEdit")
+    public String editCategory(Model model,  @RequestParam(value = "categoryId", required = false) Optional<Integer> categoryId, @Valid @ModelAttribute("category") Category category, BindingResult bindingResult) {
+        model.addAttribute("selectedMenu", "categoriesList");
+        model.addAttribute("category", categoryService.findById(categoryId.get()));
+        if (bindingResult.hasErrors()) {
+            return "admin/categoryEdit";
+        } else {
+            model.addAttribute("selectedMenu", "categoriesList");
+
+            return "admin/categoriesList";
+        }
+    }
+
+    @PostMapping("/categoryEdit")
+    public String employeeEditPost(Model model, @Valid @ModelAttribute("category") Category category, BindingResult bindingResultUser) {
+        model.addAttribute("selectedMenu", "categoriesList");
+        if (bindingResultUser.hasErrors()) {
+            return "admin/categoryEdit";
+        } else {
+            model.addAttribute("selectedMenu", "categoriesList");
+            Category foundCategory = categoryService.findById(category.getId()).get();
+            foundCategory.setName(category.getName());
+            model.addAttribute("category", foundCategory);
+            categoryService.saveCategory(foundCategory);
+            System.out.println(category);
+            return "redirect:/admin/categoriesList";
+        }
+
     }
 }

@@ -68,7 +68,7 @@ public class AdmEmployeeController {
             for (int i = 1; i <= totalPages; i++) {
                 pageNumbers.add(i);
             }
-            model.addAttribute("list","employeesList");
+            model.addAttribute("list", "employeesList");
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", page.orElse(1));
         }
@@ -107,16 +107,20 @@ public class AdmEmployeeController {
     }
 
     @PostMapping("/employeeEdit")
-    public String employeeEditPost(Model model, User user) {
-        model.addAttribute("selectedMenu", "employeesList");
-        User foundUser = userService.getUserById(user.getId());
-        foundUser.setFirstName(user.getFirstName());
-        foundUser.setLastName(user.getLastName());
-        foundUser.setAddress(user.getAddress());
-        model.addAttribute("user", foundUser);
-        userService.updateUser(foundUser);
-        System.out.println(user);
-        return "redirect:/admin/employeesList";
+    public String employeeEditPost(Model model,@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser) {
+        if (bindingResultUser.hasErrors()) {
+            return "admin/employeeEdit";
+        } else {
+            model.addAttribute("selectedMenu", "employeesList");
+            User foundUser = userService.getUserById(user.getId());
+            foundUser.setFirstName(user.getFirstName());
+            foundUser.setLastName(user.getLastName());
+            foundUser.setAddress(user.getAddress());
+            model.addAttribute("user", foundUser);
+            userService.updateUser(foundUser);
+            System.out.println(user);
+            return "redirect:/admin/employeesList";
+        }
 
     }
 }

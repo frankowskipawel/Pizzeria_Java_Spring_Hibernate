@@ -26,5 +26,9 @@ public class CategoryService {
         return categoryRepository.findAll(pageable);
     }
 
+    public Optional<Category> findById(int id){
+        return categoryRepository.findById(id);
+    }
+
 
 }
