@@ -1,6 +1,7 @@
 package com.sda.repository;
 
 
+import com.sda.entity.Role;
 import com.sda.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,5 +27,8 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 //    Page<User> getAllUserPaginated(Pageable pageable);
 
     Page<User> findAll(Pageable pageable);
+
+//    @Query("SELECT u FROM User u JOIN FETCH Role r ON u.id=r.id WHERE r.role=:role")
+    Page<User> findByRolesLike(Pageable pageable, Role role);
 }
 

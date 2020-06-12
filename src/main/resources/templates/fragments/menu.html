@@ -30,12 +30,8 @@
     <p>Klienci</p>
 
     <li class="nav-item">
-        <a th:if="${selectedMenu=='customerAdd'}" class="nav-link active" href="/admin/customerAdd">Dodaj</a>
-        <a th:unless="${selectedMenu=='customerAdd'}" class="nav-link" href="/admin/customerAdd">Dodaj</a>
-    </li>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='customerList'}" class="nav-link active" href="/admin/customerList">Lista pracowników</a>
-        <a th:unless="${selectedMenu=='customerList'}" class="nav-link" href="/admin/customerList">Lista pracowników</a>
+        <a th:if="${selectedMenu=='customersList'}" class="nav-link active" href="/admin/customersList">Lista Klientów</a>
+        <a th:unless="${selectedMenu=='customersList'}" class="nav-link" href="/admin/customersList">Lista Klientów</a>
         <!--        <a class="nav-link" href="#">Lista pracowników</a>-->
     </li>
 </ul>

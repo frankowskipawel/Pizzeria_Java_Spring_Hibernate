@@ -21,49 +21,47 @@ import java.util.*;
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String email) {
-        User user = repository.findUsersByEmail(email);
+        User user = userRepository.findUsersByEmail(email);
         List<GrantedAuthority> authorities = getUserAuthority(user.getRoles());
         return buildUserForAuthentication(user, authorities);
     }
 
+    public User updateUser(User user) {
+        return userRepository.save(user);
+    }
 
     public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return repository.save(user);
+        return userRepository.save(user);
     }
 
     public List<User> saveUsers(List<User> users) {
-        return repository.saveAll(users);
+        return userRepository.saveAll(users);
     }
 
     public List<User> getUser() {
-        return repository.findAll();
+        return userRepository.findAll();
     }
 
     public User getUserById(Integer id) {
-        return repository.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
-//    public User getUserByEmail(String email) {
-//        return repository.findByEmail(email);
-//    }
-
     public String deleteUser(int id) {
-        repository.deleteById(id);
+        userRepository.deleteById(id);
         return "product removed !! " + id;
     }
 
-
     public User findUsersByEmail(String email) {
-        repository.findUsersByEmail(email);
-        return repository.findUsersByEmail(email);
+        userRepository.findUsersByEmail(email);
+        return userRepository.findUsersByEmail(email);
     }
 
     private List<GrantedAuthority> getUserAuthority(Set<Role> userRoles) {
@@ -78,19 +76,18 @@ public class UserService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(),
                 user.getActive(), true, true, true, authorities);
     }
-//    public User updatePerson(User user) {
-//        User existingProduct = repository.findById(user.getId()).orElse(null);
-//        existingProduct.setName(user.getName());
-////        existingProduct.setQuantity(product.getQuantity());
-////        existingProduct.setPrice(product.getPrice());
-//        return repository.save(existingProduct);
-//    }
 
     public Page<User> getAllUsersPaginated(Pageable pageable) {
-        return repository.findAll(pageable);
+        return userRepository.findAll(pageable);
+    }
+
+
+
+    public Page<User> findByRoles(Pageable pageable, Role role) {
+        return userRepository.findByRolesLike(pageable, role);
     }
 
     public Optional<User> findById(Integer id) {
-        return repository.findById(id);
+        return userRepository.findById(id);
     }
 }

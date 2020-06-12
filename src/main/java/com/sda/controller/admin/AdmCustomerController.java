@@ -10,53 +10,32 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
-public class AdmEmployeeController {
+public class AdmCustomerController {
 
     @Autowired
     UserService userService;
     @Autowired
     RoleRepository roleRepository;
 
-    @GetMapping("/employeeAdd")
-    public String employeeAdd(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
-        model.addAttribute("selectedMenu", "employeeAdd");
-        return "admin/employeeAdd";
-    }
+    @GetMapping("/customersList")
+    public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page){
 
-    @PostMapping("/employeeAdd")
-    public String employeeAdd(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
-        if (bindingResultUser.hasErrors()) {
-            return "admin/employeeAdd";
-        } else {
-            user.setRoles(new HashSet<>());
-            user.getRoles().add(roleRepository.findByRole("ADMIN"));
-            user.setActive(true);
-            userService.saveUser(user);
-            return "redirect:/admin/employeesList";
-        }
-
-    }
-
-
-    @GetMapping("/employeesList")
-    public String employeesList(Model model, @RequestParam("page") Optional<Integer> page) {
-        model.addAttribute("selectedMenu", "employeesList");
+        model.addAttribute("selectedMenu", "customersList");
 
         int currentPage = page.orElse(1);
-        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, 3), roleRepository.findByRole("ADMIN"));
+
+        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, 3), roleRepository.findByRole("USER"));
 
         model.addAttribute("pages", userPage);
         int totalPages = userPage.getTotalPages();
@@ -68,25 +47,15 @@ public class AdmEmployeeController {
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", page.orElse(1));
         }
-
-        return "admin/employeesList";
+        return "admin/customersList";
     }
 
-    @PostMapping("/employeesList")
-    public String changePassword(Model model, User user, @RequestParam("page") Optional<Integer> page) {
-        System.out.println("++++" + user);
-        User foundUser = userService.getUserById(user.getId());
-        foundUser.setPassword(user.getPassword());
-        userService.saveUser(foundUser);
-        return "redirect:/admin/employeesList";
-    }
-
-    @GetMapping("/employeeEdit")
+    @GetMapping("/customerEdit")
     public String userEdit(Model model, @RequestParam(value = "userId", required = false) Optional<Integer> userId, @RequestParam(value = "delete", required = false) Optional<Integer> deleteUserId) {
-        model.addAttribute("selectedMenu", "employeesList");
+        model.addAttribute("selectedMenu", "customersList");
         if (deleteUserId.isPresent()) {
             if (userService.getUser().size() <= 1) {
-                return "redirect:/admin/employeesList";
+                return "redirect:/admin/customersList";
             }
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if (auth.getName().equals(userService.getUserById(deleteUserId.get()).getEmail())) {
@@ -94,17 +63,17 @@ public class AdmEmployeeController {
                 return "redirect:/logout";
             }
             userService.deleteUser(deleteUserId.get());
-            return "redirect:/admin/employeesList";
+            return "redirect:/admin/customersList";
         }
 
         User user = userService.getUserById(userId.get());
         model.addAttribute("user", user);
-        return "admin/employeeEdit";
+        return "admin/customerEdit";
     }
 
-    @PostMapping("/employeeEdit")
+    @PostMapping("/customerEdit")
     public String employeeEditPost(Model model, User user) {
-        model.addAttribute("selectedMenu", "employeesList");
+        model.addAttribute("selectedMenu", "customersList");
         User foundUser = userService.getUserById(user.getId());
         foundUser.setFirstName(user.getFirstName());
         foundUser.setLastName(user.getLastName());
@@ -112,7 +81,8 @@ public class AdmEmployeeController {
         model.addAttribute("user", foundUser);
         userService.updateUser(foundUser);
         System.out.println(user);
-        return "redirect:/admin/employeesList";
+        return "redirect:/admin/customersList";
 
     }
+
 }

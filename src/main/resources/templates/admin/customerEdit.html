@@ -20,10 +20,10 @@
                     data-target="#passwordModal" class="btn pull-right middle btn-primary"><span
                     class="glyphicon glyphicon-pencil"></span> Zmień hasło
             </button>
-            <a class="btn btn-primary btn" th:href="@{/admin/employeeEdit(delete=${user.id})}">Usuń konto</a>
+            <a class="btn btn-primary btn" th:href="@{/admin/customerEdit(delete=${user.id})}">Usuń konto</a>
             <br><br>
 
-            <form action="#" th:action="@{/admin/employeeEdit}" method="post" th:object="${user}"
+            <form action="#" th:action="@{/admin/customerEdit}" method="post" th:object="${user}"
                   class="needs-validated" novalidate>
 
                 <div class="form-group">
