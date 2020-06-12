@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @AllArgsConstructor
@@ -19,6 +21,7 @@ public class Category {
     @Id
     @GeneratedValue
     private int id;
+    @NotBlank(message = "{notempty}")
     private String name;
 
 }

@@ -4,6 +4,7 @@ import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ public class AdmEmployeeController {
     UserService userService;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    Environment environment;
 
     @GetMapping("/employeeAdd")
     public String employeeAdd(Model model) {
@@ -50,13 +54,12 @@ public class AdmEmployeeController {
 
     }
 
-
     @GetMapping("/employeesList")
     public String employeesList(Model model, @RequestParam("page") Optional<Integer> page) {
         model.addAttribute("selectedMenu", "employeesList");
 
         int currentPage = page.orElse(1);
-        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, 3), roleRepository.findByRole("ADMIN"));
+        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))), roleRepository.findByRole("ADMIN"));
 
         model.addAttribute("pages", userPage);
         int totalPages = userPage.getTotalPages();
@@ -65,6 +68,7 @@ public class AdmEmployeeController {
             for (int i = 1; i <= totalPages; i++) {
                 pageNumbers.add(i);
             }
+            model.addAttribute("list","employeesList");
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", page.orElse(1));
         }

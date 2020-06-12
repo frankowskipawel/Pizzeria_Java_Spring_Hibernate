@@ -6,13 +6,22 @@
             <a th:if="${selectedMenu=='home'}" class="nav-link active" href="/admin/home">Home</a>
             <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Home</a>
     </li>
-    <br>
     <p>Produkty</p>
     <li class="nav-item">
-        <a class="nav-link" href="#">Dodaj</a>
+        <a th:if="${selectedMenu=='productAdd'}" class="nav-link active" href="/admin/productAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='productAdd'}" class="nav-link" href="/admin/productAdd">Dodaj</a>
+    </li>
+
+    <br>
+    <p>Kategorie</p>
+
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='categoryAdd'}" class="nav-link active" href="/admin/categoryAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='categoryAdd'}" class="nav-link" href="/admin/categoryAdd">Dodaj</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" href="#">Lista produktów</a>
+        <a th:if="${selectedMenu=='categoriesList'}" class="nav-link active" href="/admin/categoriesList">Lista kategorii</a>
+        <a th:unless="${selectedMenu=='categoriesList'}" class="nav-link" href="/admin/categoriesList">Lista kategorii</a>
     </li>
     <br>
     <p>Pracownicy</p>

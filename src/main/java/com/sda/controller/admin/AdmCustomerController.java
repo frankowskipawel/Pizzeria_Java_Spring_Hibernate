@@ -4,6 +4,7 @@ import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
@@ -27,6 +28,8 @@ public class AdmCustomerController {
     UserService userService;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    Environment environment;
 
     @GetMapping("/customersList")
     public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page){
@@ -35,7 +38,7 @@ public class AdmCustomerController {
 
         int currentPage = page.orElse(1);
 
-        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, 3), roleRepository.findByRole("USER"));
+        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))), roleRepository.findByRole("USER"));
 
         model.addAttribute("pages", userPage);
         int totalPages = userPage.getTotalPages();
@@ -44,6 +47,7 @@ public class AdmCustomerController {
             for (int i = 1; i <= totalPages; i++) {
                 pageNumbers.add(i);
             }
+            model.addAttribute("list","customersList");
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", page.orElse(1));
         }
