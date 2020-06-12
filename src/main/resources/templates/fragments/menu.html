@@ -7,6 +7,14 @@
             <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Home</a>
     </li>
     <br>
+    <p>Produkty</p>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Dodaj</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link disabled" href="#">Lista produktów</a>
+    </li>
+    <br>
     <p>Pracownicy</p>
 
     <li class="nav-item">
@@ -19,12 +27,16 @@
 <!--        <a class="nav-link" href="#">Lista pracowników</a>-->
     </li>
     <br>
-    <p>Produkty</p>
+    <p>Klienci</p>
+
     <li class="nav-item">
-        <a class="nav-link" href="#">Dodaj</a>
+        <a th:if="${selectedMenu=='customerAdd'}" class="nav-link active" href="/admin/customerAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='customerAdd'}" class="nav-link" href="/admin/customerAdd">Dodaj</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" href="#">Lista produktów</a>
+        <a th:if="${selectedMenu=='customerList'}" class="nav-link active" href="/admin/customerList">Lista pracowników</a>
+        <a th:unless="${selectedMenu=='customerList'}" class="nav-link" href="/admin/customerList">Lista pracowników</a>
+        <!--        <a class="nav-link" href="#">Lista pracowników</a>-->
     </li>
 </ul>
 <!--    <span th:text="${active}">id</span>-->

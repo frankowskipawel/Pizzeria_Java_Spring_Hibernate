@@ -1,4 +1,4 @@
-package com.sda.controller;
+package com.sda.controller.admin;
 
 import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
@@ -6,7 +6,6 @@ import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -15,29 +14,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
-@RequestMapping("/")
-public class AdminController {
+@RequestMapping("/admin")
+public class AdmEmployeeController {
 
     @Autowired
     UserService userService;
     @Autowired
     RoleRepository roleRepository;
 
-
-    @GetMapping("/admin/home")
-    public String getAdmin(Model model) {
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        Set<GrantedAuthority> authoritiesList = new HashSet<>();
-//                authoritiesList.addAll(auth.getAuthorities());
-//        System.out.println("role = "+authoritiesList);
-        model.addAttribute("selectedMenu", "home");
-        return "/admin/home";
-    }
-
-    @GetMapping("/admin/employeeAdd")
+    @GetMapping("/employeeAdd")
     public String employeeAdd(Model model) {
         User user = new User();
         model.addAttribute("user", user);
@@ -45,7 +36,7 @@ public class AdminController {
         return "admin/employeeAdd";
     }
 
-    @PostMapping("/admin/employeeAdd")
+    @PostMapping("/employeeAdd")
     public String employeeAdd(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
         if (bindingResultUser.hasErrors()) {
             return "admin/employeeAdd";
@@ -60,7 +51,7 @@ public class AdminController {
     }
 
 
-    @GetMapping("/admin/employeesList")
+    @GetMapping("/employeesList")
     public String employeesList(Model model, @RequestParam("page") Optional<Integer> page) {
         model.addAttribute("selectedMenu", "employeesList");
 
@@ -78,10 +69,10 @@ public class AdminController {
             model.addAttribute("currentPage", page.orElse(1));
         }
 
-        return "/admin/employeesList";
+        return "admin/employeesList";
     }
 
-    @PostMapping("/admin/employeesList")
+    @PostMapping("/employeesList")
     public String changePassword(Model model, User user, @RequestParam("page") Optional<Integer> page) {
         System.out.println("++++" + user);
         User foundUser = userService.getUserById(user.getId());
@@ -90,7 +81,7 @@ public class AdminController {
         return "redirect:/admin/employeesList";
     }
 
-    @GetMapping("/admin/employeeEdit")
+    @GetMapping("/employeeEdit")
     public String employeeEdit(Model model, @RequestParam(value = "userId", required = false) Optional<Integer> userId, @RequestParam(value = "delete", required = false) Optional<Integer> deleteUserId) {
         if (deleteUserId.isPresent()) {
             if (userService.getUser().size() <= 1) {
@@ -110,7 +101,7 @@ public class AdminController {
         return "admin/employeeEdit";
     }
 
-    @PostMapping("/admin/employeeEdit")
+    @PostMapping("/employeeEdit")
     public String employeeEditPost(Model model, User user) {
         User foundUser = userService.getUserById(user.getId());
         foundUser.setFirstName(user.getFirstName());
