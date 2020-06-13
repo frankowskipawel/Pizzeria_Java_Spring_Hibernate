@@ -1,15 +1,17 @@
 package com.sda.entity;
 
-import com.sda.entity.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+
+import javax.validation.constraints.Positive;
+import java.math.BigDecimal;
+
 
 @Data
 @AllArgsConstructor
@@ -21,10 +23,15 @@ public class Product {
     @Id
     @GeneratedValue
     private int id;
+    @NotBlank(message = "{notempty}")
     private String name;
     @ManyToOne
     private Category category;
-    private int price;
+    @Positive(message = "{incorectFormat}")
+    @NumberFormat
+    @Digits(integer=10, fraction=2, message = "{incorectFormat}")
+    private BigDecimal price;
+    @NotBlank(message = "{notempty}")
     private String description;
 
 

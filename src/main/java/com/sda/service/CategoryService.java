@@ -30,5 +30,7 @@ public class CategoryService {
         return categoryRepository.findById(id);
     }
 
+    public List<Category> findAll(){return categoryRepository.findAll();}
+
 
 }

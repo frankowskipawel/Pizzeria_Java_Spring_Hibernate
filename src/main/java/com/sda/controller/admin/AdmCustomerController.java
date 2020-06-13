@@ -77,7 +77,7 @@ public class AdmCustomerController {
     @PostMapping("/customerEdit")
     public String employeeEditPost(Model model, @Valid @ModelAttribute("user") User user, BindingResult bindingResultUser) {
         if (bindingResultUser.hasErrors()) {
-            return "admin/employeeEdit";
+            return "admin/customerEdit";
         } else {
             model.addAttribute("selectedMenu", "customersList");
             User foundUser = userService.getUserById(user.getId());
