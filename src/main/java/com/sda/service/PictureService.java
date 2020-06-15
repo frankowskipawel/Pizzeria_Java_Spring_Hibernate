@@ -15,4 +15,8 @@ public class PictureService {
         return pictureRepository.save(picture);
     }
 
+    public Picture findByFileName(String fileName){
+        return pictureRepository.findByFileName(fileName);
+    }
+
 }

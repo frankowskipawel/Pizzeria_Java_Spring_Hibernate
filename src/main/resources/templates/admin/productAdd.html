@@ -41,22 +41,23 @@
                            th:field="*{description}"/>
                 </div>
 
-<!--<span th:text="${product.picture}"></span>-->
-
                 <br>
                 <div class="form-group">
-<!--                <img class="img-thumbnail" th:src="@{|/files/${product.picture.fileName}|}" th:field="${product.picture.fileName}"/>-->
-                <img class="img-thumbnail" th:src="@{|/files/*{picture.fileName}|}" th:field="*{picture.fileName}"/>
+                    <input type="hidden" id="id_picture" th:field="*{picture.id}"/>
+                    <input type="hidden" id="picture" th:field="*{picture.fileName}"/>
+                <img th:if="*{picture.fileName != null}" class="img-thumbnail" th:src="@{|/files/*{picture.fileName}|}"/>
+                    <img th:unless="*{picture.fileName != null}" class="img-thumbnail" th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
                 <button type="submit" class="btn btn-primary">Dodaj</button>
             </form>
+            <div class="form-group">
             <form method="POST" enctype="multipart/form-data" action="/admin/productAddfile">
                 <table>
-                    <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-                    <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                    <tr><td>Wgraj zdjęcie:</td><td><input type="file" name="file " class="btn btn-outline-primary"/></td></tr>
+                    <tr><td></td><td><input class="btn btn-primary btn-sm" type="submit" value="Upload" /></td></tr>
                 </table>
             </form>
-
+        </div>
 
 
 <!--            <div>-->

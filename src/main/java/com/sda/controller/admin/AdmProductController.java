@@ -4,6 +4,7 @@ import com.sda.FileUploadController;
 import com.sda.entity.Picture;
 import com.sda.entity.Product;
 import com.sda.service.CategoryService;
+import com.sda.service.PictureService;
 import com.sda.service.ProductService;
 import com.sda.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class AdmProductController {
     CategoryService categoryService;
     @Autowired
     ProductService productService;
+    @Autowired
+    PictureService pictureService;
 
 
     @GetMapping("/productAdd")
@@ -33,7 +36,7 @@ public class AdmProductController {
         model.addAttribute("selectedMenu", "productAdd");
         model.addAttribute("categories", categoryService.findAll());
         Product product = new Product();
-        product.setPicture(new Picture(0, photoFileName));
+        product.setPicture(pictureService.findByFileName(photoFileName));
         model.addAttribute("product", product);
         System.out.println("oooooooo" + photoFileName);
 
