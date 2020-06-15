@@ -11,6 +11,10 @@
         <a th:if="${selectedMenu=='productAdd'}" class="nav-link active" href="/admin/productAdd">Dodaj</a>
         <a th:unless="${selectedMenu=='productAdd'}" class="nav-link" href="/admin/productAdd">Dodaj</a>
     </li>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='productsList'}" class="nav-link active" href="/admin/productsList">Lista produktów</a>
+        <a th:unless="${selectedMenu=='productsList'}" class="nav-link" href="/admin/productsList">Lista produktów</a>
+    </li>
 
     <br>
     <p>Kategorie</p>

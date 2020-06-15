@@ -1,6 +1,7 @@
-package com.sda;
+package com.sda.controller.admin;
 
 
+import com.sda.entity.Product;
 import com.sda.storage.StorageFileNotFoundException;
 import com.sda.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,7 +33,7 @@ public class FileUploadController {
 //	public String listUploadedFiles(Model model) throws IOException {
 //
 //		model.addAttribute("files", storageService.loadAll().map(
-//				path -> MvcUriComponentsBuilder.fromMethodName(com.sda.FileUploadController.class,
+//				path -> MvcUriComponentsBuilder.fromMethodName(com.sda.controller.admin.FileUploadController.class,
 //						"serveFile", path.getFileName().toString()).build().toUri().toString())
 //				.collect(Collectors.toList()));
 //
@@ -54,9 +51,10 @@ public class FileUploadController {
 
 	@PostMapping("/admin/productAddfile")
 	public String handleFileUpload(Model model, @RequestParam("file") MultipartFile file,
+								   @RequestParam(value = "product", required = false) Product product,
 			RedirectAttributes redirectAttributes) throws IOException {
 
-		System.out.println("+++++"+file.getOriginalFilename());
+		System.out.println("+++++"+product);
 		storageService.store(file);
 
 		redirectAttributes.addFlashAttribute("message",

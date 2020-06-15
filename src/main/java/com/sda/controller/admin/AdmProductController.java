@@ -1,22 +1,22 @@
 package com.sda.controller.admin;
 
-import com.sda.FileUploadController;
-import com.sda.entity.Picture;
 import com.sda.entity.Product;
 import com.sda.service.CategoryService;
 import com.sda.service.PictureService;
 import com.sda.service.ProductService;
-import com.sda.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -29,6 +29,8 @@ public class AdmProductController {
     ProductService productService;
     @Autowired
     PictureService pictureService;
+    @Autowired
+    private Environment environment;
 
 
     @GetMapping("/productAdd")
@@ -39,10 +41,6 @@ public class AdmProductController {
         product.setPicture(pictureService.findByFileName(photoFileName));
         model.addAttribute("product", product);
         System.out.println("oooooooo" + photoFileName);
-
-
-//        model.addAttribute("picture",photoFileName);
-
 
         return "admin/productAdd";
     }
@@ -62,8 +60,41 @@ public class AdmProductController {
             productService.saveProduct(product);
             return "admin/home";
         }
-
-
     }
 
+    @GetMapping("/productsList")
+    public String productList(Model model, @RequestParam("page") Optional<Integer> page) {
+        model.addAttribute("selectedMenu", "productsList");
+
+        int currentPage = page.orElse(1);
+
+        Page<Product> productPage = productService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))));
+        model.addAttribute("pages", productPage);
+        int totalPages = productPage.getTotalPages();
+        if (totalPages > 0) {
+            List<Integer> pageNumbers = new ArrayList<>();
+            for (int i = 1; i <= totalPages; i++) {
+                pageNumbers.add(i);
+            }
+            model.addAttribute("list", "productsList");
+            model.addAttribute("pageNumbers", pageNumbers);
+            model.addAttribute("currentPage", page.orElse(1));
+        }
+
+        return "admin/productsList";
+    }
+
+    @GetMapping("/productEdit")
+    public String productEdit(Model model, @RequestParam(value = "productId", required = false) Optional<Integer> productId, @Valid @ModelAttribute("product") Product product, BindingResult bindingResult){
+        model.addAttribute("selectedMenu", "productsList");
+        model.addAttribute("product", productService.findById(productId.get()).get());
+        model.addAttribute("categories", categoryService.findAll());
+        if (bindingResult.hasErrors()) {
+            return "admin/productEdit";
+        } else {
+            model.addAttribute("selectedMenu", "productsList");
+            return "admin/productsList";
+        }
+
+    }
 }

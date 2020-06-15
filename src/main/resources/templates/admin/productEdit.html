@@ -24,7 +24,7 @@
                 </form>
             </div>
 
-            <form action="#" th:action="@{/admin/productAdd}" method="post" th:object="${product}"
+            <form action="#" th:action="@{/admin/productEdit}" method="post" th:object="${product}"
                   class="needs-validated" novalidate>
 
                 <div class="form-group" style="width:200px; height: 200px">
@@ -68,17 +68,17 @@
         </div>
 
 
-<!--            <div>-->
-<!--                <ul>-->
-<!--                    <li th:each="file : ${files}">-->
-<!--                        <a th:href="${file}" th:text="${file}" />-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
+        <!--            <div>-->
+        <!--                <ul>-->
+        <!--                    <li th:each="file : ${files}">-->
+        <!--                        <a th:href="${file}" th:text="${file}" />-->
+        <!--                    </li>-->
+        <!--                </ul>-->
+        <!--            </div>-->
 
 
-        </div>
     </div>
+</div>
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>

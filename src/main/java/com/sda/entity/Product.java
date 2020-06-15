@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
 
@@ -27,6 +28,7 @@ public class Product {
     private String name;
     @ManyToOne
     private Category category;
+    @NotNull(message = "{notempty}")
     @Positive(message = "{incorectFormat}")
     @NumberFormat
     @Digits(integer=10, fraction=2, message = "{incorectFormat}")
@@ -35,6 +37,5 @@ public class Product {
     private String description;
     @ManyToOne
     private Picture picture;
-
 
 }
