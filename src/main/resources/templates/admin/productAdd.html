@@ -23,7 +23,7 @@
                     <input type="text" id="name" class="form-control" placeholder="Wpisz nazwę" th:field="*{name}"/>
                 </div>
                 <label for="name">Kategoria: </label><br>
-                <select th:object="${category}" class="form-control" th:name="id">
+                <select th:object="${category}" class="form-control" th:name="id" th:field="${product.category}">
                     <option th:each="category:${categories}" th:value="${category.id}" th:text="${category.name}"/>
                 </select>
                 <br>
@@ -40,8 +40,34 @@
                     <input type="text" id="description" class="form-control" placeholder="Opis"
                            th:field="*{description}"/>
                 </div>
+
+<!--<span th:text="${product.picture}"></span>-->
+
+                <br>
+                <div class="form-group">
+<!--                <img class="img-thumbnail" th:src="@{|/files/${product.picture.fileName}|}" th:field="${product.picture.fileName}"/>-->
+                <img class="img-thumbnail" th:src="@{|/files/*{picture.fileName}|}" th:field="*{picture.fileName}"/>
+                </div>
                 <button type="submit" class="btn btn-primary">Dodaj</button>
             </form>
+            <form method="POST" enctype="multipart/form-data" action="/admin/productAddfile">
+                <table>
+                    <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+                    <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                </table>
+            </form>
+
+
+
+<!--            <div>-->
+<!--                <ul>-->
+<!--                    <li th:each="file : ${files}">-->
+<!--                        <a th:href="${file}" th:text="${file}" />-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+
+
         </div>
     </div>
 </div>

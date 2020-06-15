@@ -33,6 +33,8 @@ public class Product {
     private BigDecimal price;
     @NotBlank(message = "{notempty}")
     private String description;
+    @ManyToOne
+    private Picture picture;
 
 
 }
