@@ -33,6 +33,7 @@
                     <img  th:if="*{picture.fileName != null}" class="img-thumbnail" th:src="@{|/files/*{picture.fileName}|}"/>
                     <img th:unless="*{picture.fileName != null}" class="img-thumbnail" th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
+                <input type="hidden" id="id" th:field="*{id}"/>
                 <div class="form-group">
                     <label for="name">Nazwa: </label><br><span style="color:red;font-size:12px"
                                                                th:if="${#fields.hasErrors('name')}"
@@ -60,7 +61,7 @@
 
                 <br>
 
-                <button type="submit" class="btn btn-primary">Dodaj produkt</button>
+                <button type="submit" class="btn btn-primary">Zapisz</button>
                 <br>
             </form>
             <br>

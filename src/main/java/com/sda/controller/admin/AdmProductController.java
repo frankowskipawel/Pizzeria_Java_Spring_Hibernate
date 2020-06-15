@@ -89,12 +89,29 @@ public class AdmProductController {
         model.addAttribute("selectedMenu", "productsList");
         model.addAttribute("product", productService.findById(productId.get()).get());
         model.addAttribute("categories", categoryService.findAll());
+        System.out.println(productService.findById(productId.get()).get());
         if (bindingResult.hasErrors()) {
             return "admin/productEdit";
         } else {
             model.addAttribute("selectedMenu", "productsList");
             return "admin/productsList";
         }
+    }
 
+    @PostMapping("/productEdit")
+    public String editProductPost(Model model,
+                                 @Valid @ModelAttribute("product") Product product,
+                                 BindingResult bindingResultUser) {
+        model.addAttribute("selectedMenu", "productAdd");
+        if (bindingResultUser.hasErrors()) {
+            model.addAttribute("categories", categoryService.findAll());
+            model.addAttribute("product", product);
+            System.out.println("===="+product);
+            return "admin/productEdit";
+        } else {
+            System.out.println("===="+product);
+            productService.saveProduct(product);
+            return "redirect:/admin/productsList";
+        }
     }
 }
