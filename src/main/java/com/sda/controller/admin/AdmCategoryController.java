@@ -92,6 +92,7 @@ public class AdmCategoryController {
             model.addAttribute("selectedMenu", "categoriesList");
             Category foundCategory = categoryService.findById(category.getId()).get();
             foundCategory.setName(category.getName());
+            foundCategory.setWeight(category.getWeight());
             model.addAttribute("category", foundCategory);
             categoryService.saveCategory(foundCategory);
             System.out.println(category);

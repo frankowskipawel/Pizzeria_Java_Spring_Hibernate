@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<!--header-->
+<div th:insert="fragments/navbar :: navbar"></div>
+
+<div class="container" style="margin-top:30px">
+
+    <h2>Produkty</h2>
+    <br>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Zdjęcie</th>
+            <th>Id</th>
+            <th>Nazwa</th>
+            <th>Kategoria</th>
+            <th>Cena</th>
+
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--                <tr th:each="user : ${users}">-->
+
+        <tr th:each="product:${pages}" th:object="${product}">
+            <td><img style="width:50px; height: 50px" th:if="*{picture.fileName != null}" class="img-thumbnail" th:src="@{|/files/${product.picture.fileName}|}"/></td>
+            <td><span th:text="${product.id}"></span></td>
+            <td><span th:text="${product.name}"></span></td>
+            <td><span th:text="${product.category.name}"></span></td>
+            <td><span th:text="${product.price}"></span></td>
+            <!--                    <td><span th:text="${product.picture.fileName}"></span></td>-->
+
+            <td>
+                <div class="btn-group-vertical">
+                    <!--                            <button id="btn-editEmail" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal" class="btn pull-right middle btn-primary"><span class="glyphicon glyphicon-pencil"></span>  Edit</button>-->
+
+                    <!--                            <button type="button" class="btn btn-primary btn-sm" >Edytuj</button>-->
+                    <a th:href="@{/admin/productEdit(productId=${product.id})}" class="btn btn-primary btn-sm" role="button">Zamów</a>
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:insert="fragments/pagination :: pagination"></div>
+
+
+</div>
+<!--footer-->
+<div th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>
+
+

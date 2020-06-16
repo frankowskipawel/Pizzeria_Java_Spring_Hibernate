@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +24,7 @@ public class Category {
     private int id;
     @NotBlank(message = "{notempty}")
     private String name;
+    @NotNull(message = "{notempty}")
+    private int weight;
 
 }
