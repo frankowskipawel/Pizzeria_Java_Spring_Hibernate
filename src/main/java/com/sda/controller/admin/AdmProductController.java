@@ -40,7 +40,6 @@ public class AdmProductController {
         Product product = new Product();
         product.setPicture(pictureService.findByFileName(photoFileName));
         model.addAttribute("product", product);
-        System.out.println("oooooooo" + photoFileName);
 
         return "admin/productAdd";
     }
@@ -53,7 +52,6 @@ public class AdmProductController {
         if (bindingResultUser.hasErrors()) {
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("product", product);
-            System.out.println("===="+product);
             return "admin/productAdd";
         } else {
 
@@ -85,11 +83,25 @@ public class AdmProductController {
     }
 
     @GetMapping("/productEdit")
-    public String productEdit(Model model, @RequestParam(value = "productId", required = false) Optional<Integer> productId, @Valid @ModelAttribute("product") Product product, BindingResult bindingResult){
+    public String productEdit(Model model,
+                              @RequestParam(value = "productId", required = false) Optional<Integer> productId,
+                              @RequestParam(value = "picture", required = false) String photoFileName,
+                              @RequestParam(value = "delete", required = false) Integer deleteId,
+                              @Valid @ModelAttribute("product") Product product,
+                              BindingResult bindingResult) {
         model.addAttribute("selectedMenu", "productsList");
-        model.addAttribute("product", productService.findById(productId.get()).get());
+        if (deleteId!=null){
+            productService.deleteById(deleteId);
+            return "redirect:/admin/productsList";
+        }
+
+        Product editedProduct = productService.findById(productId.get()).get();
+        if (photoFileName!=null) {
+            editedProduct.setPicture(pictureService.findByFileName(photoFileName));
+        }
+        model.addAttribute("product", editedProduct);
         model.addAttribute("categories", categoryService.findAll());
-        System.out.println(productService.findById(productId.get()).get());
+
         if (bindingResult.hasErrors()) {
             return "admin/productEdit";
         } else {
@@ -100,16 +112,16 @@ public class AdmProductController {
 
     @PostMapping("/productEdit")
     public String editProductPost(Model model,
-                                 @Valid @ModelAttribute("product") Product product,
-                                 BindingResult bindingResultUser) {
+                                  @Valid @ModelAttribute("product") Product product,
+                                  @RequestParam(value = "picture", required = false) String photoFileName,
+                                  BindingResult bindingResultUser) {
         model.addAttribute("selectedMenu", "productAdd");
+        model.addAttribute("product", product);
         if (bindingResultUser.hasErrors()) {
             model.addAttribute("categories", categoryService.findAll());
             model.addAttribute("product", product);
-            System.out.println("===="+product);
             return "admin/productEdit";
         } else {
-            System.out.println("===="+product);
             productService.saveProduct(product);
             return "redirect:/admin/productsList";
         }

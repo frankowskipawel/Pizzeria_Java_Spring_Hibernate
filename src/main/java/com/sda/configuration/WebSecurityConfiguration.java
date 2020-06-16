@@ -31,30 +31,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//
-//        String loginPage = "/login";
-//        String logoutPage = "/home";
-
-//        http.
-//                authorizeRequests()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/home").permitAll()
-//                .antMatchers(loginPage).permitAll()
-//                .antMatchers("/register").permitAll()
-//                .antMatchers("/admin/**").hasAuthority("ADMIN")
-//                .anyRequest()
-//                .authenticated()
-//                .and().csrf().disable()
-//                .formLogin()
-//                .loginPage(loginPage)
-//                .loginPage("/login")
-//                .failureUrl("/login?error=true")
-//                .defaultSuccessUrl("/admin/home")
-//                .usernameParameter("email")
-//                .passwordParameter("password")
-//                .and().logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher(logoutPage))
-//                .logoutSuccessUrl(loginPage).and().exceptionHandling();
 
         http.authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
@@ -70,10 +46,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login").and().exceptionHandling();
     }
-
-
-
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {

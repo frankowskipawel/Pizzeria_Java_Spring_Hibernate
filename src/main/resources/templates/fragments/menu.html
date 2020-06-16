@@ -3,9 +3,10 @@
 <h3>Panel Administratora</h3>
 <ul class="nav nav-pills flex-column">
     <li class="nav-item">
-            <a th:if="${selectedMenu=='home'}" class="nav-link active" href="/admin/home">Home</a>
-            <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Home</a>
+            <a th:if="${selectedMenu=='home'}" class="nav-link active" href="/admin/home">Strona główna</a>
+            <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Strona główna</a>
     </li>
+    <br>
     <p>Produkty</p>
     <li class="nav-item">
         <a th:if="${selectedMenu=='productAdd'}" class="nav-link active" href="/admin/productAdd">Dodaj</a>
