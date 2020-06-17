@@ -1,8 +1,11 @@
 package com.sda.repository;
 
 import com.sda.entity.Product;
-import com.sda.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+//    List<Product> findAl
 }

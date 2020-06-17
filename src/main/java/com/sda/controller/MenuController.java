@@ -4,17 +4,15 @@ import com.sda.entity.Product;
 import com.sda.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -26,21 +24,23 @@ public class MenuController {
     private Environment environment;
 
     @GetMapping("/menu")
-    public String menu(Model model, @RequestParam("page") Optional<Integer> page){
-        int currentPage = page.orElse(1);
+    public String menu(Model model){
 
-        Page<Product> productPage = productService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))));
-        model.addAttribute("pages", productPage);
-        int totalPages = productPage.getTotalPages();
-        if (totalPages > 0) {
-            List<Integer> pageNumbers = new ArrayList<>();
-            for (int i = 1; i <= totalPages; i++) {
-                pageNumbers.add(i);
+        List<Product> products= productService.findAllOrOrderByCategoryAndCategory_Weight();
+        Map<String, List<Product>> productsMap = new HashMap<>();
+        for (Product product : products) {
+            if (productsMap.get(product.getCategory().getName())==null){
+                List<Product> productsInCategory = new ArrayList<>();
+                productsInCategory.add(product);
+                productsMap.put(product.getCategory().getName(), productsInCategory);
+            } else {
+                productsMap.get(product.getCategory().getName()).add(product);
             }
-            model.addAttribute("list", "productsList");
-            model.addAttribute("pageNumbers", pageNumbers);
-            model.addAttribute("currentPage", page.orElse(1));
+
         }
+
+        model.addAttribute("productsMap", productsMap);
+
 
         return "menu";
     }
