@@ -5,12 +5,12 @@
 <div class="container" align="center">
     <div class="btn-group" align="center">
 
-        <!--previous page--><a style="padding: 12px" th:if="${currentPage!=1}" th:href="@{|/admin/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
+        <!--previous page--><a style="padding: 12px" th:if="${currentPage != null && currentPage!=1}" th:href="@{|/admin/${list}?page=${currentPage-1}|}" th:text="'<<<'"> </a>
         <span th:if="${pages.totalPages > 0}" class="pagination" th:each="pageNumber : ${pageNumbers}">
                    <!--current page--><a style="padding: 12px; font-weight:bold" th:if="${currentPage == pageNumber}" th:href="@{|/admin/${list}?page=${pageNumber}|}" th:text="${pageNumber}+'  '"></a>
             <!--other page--><a style="padding: 12px" th:if="${currentPage!=pageNumber}" th:href="@{|/admin/${list}?page=${pageNumber}|}" th:text="${pageNumber}"> </a>
                 </span>
-        <!--next page--><a style="padding: 12px" th:if="${currentPage<pages.totalPages}" th:href="@{|/admin/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
+        <!--next page--><a style="padding: 12px" th:if="${currentPage != null &&  currentPage<pages.totalPages}" th:href="@{|/admin/${list}?page=${currentPage+1}|}" th:text="' >>>'"> </a>
 
     </div>
 </div>
