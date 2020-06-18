@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,11 +25,19 @@ public class Cart {
     }
 
     public int getCartQuantity(){
-        int count = 0;
-        for (ProductItem productItem : productItems){
-            count+=productItem.getQuantity();
-        }
+        int count = productItems.stream().mapToInt(ProductItem::getQuantity).sum();
         return count;
+
+    }
+
+    public BigDecimal getTotalPrice(){
+        BigDecimal totalPrice = new BigDecimal("0");;
+        for (ProductItem productItem : productItems) {
+            BigDecimal quantity = new BigDecimal(productItem.getQuantity());
+            BigDecimal price = productItem.getProduct().getPrice();
+            totalPrice=totalPrice.add(quantity.multiply(price));
+        }
+        return totalPrice;
 
     }
 }

@@ -15,7 +15,7 @@
             <div class="card-header bg-dark text-light">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 Koszyk
-                <a href="" class="btn btn-outline-info btn-sm pull-right">Continiu shopping</a>
+                <a href="/menu" class="btn btn-outline-info btn-sm pull-right">Kontynuuj zakupy</a>
                 <div class="clearfix"></div>
             </div>
             <div class="card-body">
@@ -36,18 +36,24 @@
                             </h4>
                         </div>
                         <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
-                            <div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px">
-                                <h6><strong><span th:text="${productItem.product.price}"></span><span class="text-muted">x</span></strong></h6>
+                            <div class="col-3 col-sm-3 col-md-6 text-md-right d-flex align-items-center" style="padding-top: 5px">
+<!--                                <br>-->
+                                <h6><strong><span  th:text="${productItem.product.price}"></span><span class="text-muted">zł x</span></strong></h6>
                             </div>
-                            <div class="col-4 col-sm-4 col-md-4">
-                                <div class="quantity">
-                                                                    <input type="button" value="+" class="plus">
-                                    <input type="number" step="1" max="99" min="1"  title="Ilość" class="qty"
-                                           size="4" th:attr="value = ${productItem.quantity}" disabled>
-                                                                    <input type="button" value="-" class="minus">
+                            <div class="col-4 col-sm-4 col-md-4 d-flex align-items-center">
+                                <div class="quantity btn-group-vertical" >
+<!--                                                                    <input type="button" value="+" class="plus">-->
+                                    <a href="/cart/incrementAmount">
+                                       <button class="btn btn-outline-dark btn-sm" style="width: 30px">+</button>
+                                    </a>
+                                    <input type="text" step="1" max="99" min="1"  title="Ilość" class="qty"
+                                           size="3" th:attr="value = ${productItem.quantity+' szt'}" disabled>
+                                    <a href="/cart/decrementAmount">
+                                       <button class="btn btn-outline-dark btn-sm" style="width: 30px">-</button>
+                                    </a>
                                 </div>
                             </div>
-                            <div class="col-2 col-sm-2 col-md-2 text-right">
+                            <div class="col-2 col-sm-2 col-md-2 text-right d-flex align-items-center">
                                 <button type="button" class="btn btn-outline-danger btn-xs">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
@@ -58,27 +64,27 @@
                     <br>
                     <!-- END PRODUCT -->
                 </div>
-                <div class="pull-right">
-                    <a href="" class="btn btn-outline-secondary pull-right">
-                        Update shopping cart
-                    </a>
-                </div>
+<!--                <div class="pull-right">-->
+<!--                    <a href="" class="btn btn-outline-secondary pull-right">-->
+<!--                        Update shopping cart-->
+<!--                    </a>-->
+<!--                </div>-->
             </div>
             <div class="card-footer">
-                <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="text" class="form-control" placeholder="cupone code">
-                        </div>
-                        <div class="col-6">
-                            <input type="submit" class="btn btn-default" value="Use cupone">
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-6">-->
+<!--                            <input type="text" class="form-control" placeholder="cupone code">-->
+<!--                        </div>-->
+<!--                        <div class="col-6">-->
+<!--                            <input type="submit" class="btn btn-default" value="Use cupone">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <div class="pull-right" style="margin: 10px">
-                    <a href="" class="btn btn-success pull-right">Checkout</a>
+                    <a href="" class="btn btn-success pull-right">Zamawiam</a>
                     <div class="pull-right" style="margin: 5px">
-                        Total price: <b>50.00€</b>
+                        Suma: <b><span th:text="${totalPrice+'zł'}"></span></b>
                     </div>
                 </div>
             </div>

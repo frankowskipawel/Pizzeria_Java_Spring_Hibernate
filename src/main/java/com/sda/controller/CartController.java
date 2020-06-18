@@ -47,6 +47,7 @@ public class CartController {
     public String getCart(Model model){
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("productItems", cart.getProductItems());
+        model.addAttribute("totalPrice", cart.getTotalPrice());
         return "cart/show";
     }
 }
