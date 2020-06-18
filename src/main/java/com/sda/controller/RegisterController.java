@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.sda.entity.Cart;
 import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
@@ -23,9 +24,12 @@ public class RegisterController {
     private UserService userService;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    Cart cart;
 
     @GetMapping("/register")
     public String showForm(Model model) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         User user = new User();
         model.addAttribute("user", user);
         return "register";
@@ -33,6 +37,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String submitForm(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         if (bindingResultUser.hasErrors()) {
             return "register";
         } else {

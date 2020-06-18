@@ -1,5 +1,6 @@
 package com.sda.controller.admin;
 
+import com.sda.entity.Cart;
 import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,12 @@ public class AdmHomeController {
     UserService userService;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    Cart cart;
 
     @GetMapping("/home")
     public String getAdmin(Model model) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
 //        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 //        Set<GrantedAuthority> authoritiesList = new HashSet<>();
 //                authoritiesList.addAll(auth.getAuthorities());

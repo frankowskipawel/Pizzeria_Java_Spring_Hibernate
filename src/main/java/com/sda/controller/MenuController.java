@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.sda.entity.Cart;
 import com.sda.entity.Product;
 import com.sda.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +23,12 @@ public class MenuController {
     ProductService productService;
     @Autowired
     private Environment environment;
+    @Autowired
+    Cart cart;
 
     @GetMapping("/menu")
     public String menu(Model model){
-
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         List<Product> products= productService.findAllOrOrderByCategoryAndCategory_Weight();
         Map<String, List<Product>> productsMap = new HashMap<>();
         for (Product product : products) {

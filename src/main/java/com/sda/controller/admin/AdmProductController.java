@@ -1,5 +1,6 @@
 package com.sda.controller.admin;
 
+import com.sda.entity.Cart;
 import com.sda.entity.Product;
 import com.sda.service.CategoryService;
 import com.sda.service.PictureService;
@@ -31,10 +32,13 @@ public class AdmProductController {
     PictureService pictureService;
     @Autowired
     private Environment environment;
+    @Autowired
+    Cart cart;
 
 
     @GetMapping("/productAdd")
     public String addProduct(Model model, @RequestParam(value = "picture", required = false) String photoFileName) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "productAdd");
         model.addAttribute("categories", categoryService.findAll());
         Product product = new Product();
@@ -48,6 +52,7 @@ public class AdmProductController {
     public String addProductPost(Model model,
                                  @Valid @ModelAttribute("product") Product product,
                                  BindingResult bindingResultUser) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "productAdd");
         if (bindingResultUser.hasErrors()) {
             model.addAttribute("categories", categoryService.findAll());
@@ -62,6 +67,7 @@ public class AdmProductController {
 
     @GetMapping("/productsList")
     public String productList(Model model, @RequestParam("page") Optional<Integer> page) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "productsList");
 
         int currentPage = page.orElse(1);
@@ -89,6 +95,7 @@ public class AdmProductController {
                               @RequestParam(value = "delete", required = false) Integer deleteId,
                               @Valid @ModelAttribute("product") Product product,
                               BindingResult bindingResult) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "productsList");
         if (deleteId!=null){
             productService.deleteById(deleteId);
@@ -115,6 +122,7 @@ public class AdmProductController {
                                   @Valid @ModelAttribute("product") Product product,
                                   @RequestParam(value = "picture", required = false) String photoFileName,
                                   BindingResult bindingResultUser) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "productAdd");
         model.addAttribute("product", product);
         if (bindingResultUser.hasErrors()) {

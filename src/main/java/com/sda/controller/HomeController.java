@@ -1,5 +1,6 @@
 package com.sda.controller;
 
+import com.sda.entity.Cart;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -19,10 +20,13 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    Cart cart;
 
 
     @GetMapping("/home")
     public String home(Model model) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Set<GrantedAuthority> authoritiesList = new HashSet<>();
         authoritiesList.addAll(auth.getAuthorities());

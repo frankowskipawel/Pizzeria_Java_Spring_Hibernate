@@ -1,5 +1,6 @@
 package com.sda.controller.admin;
 
+import com.sda.entity.Cart;
 import com.sda.entity.Category;
 
 import com.sda.entity.User;
@@ -28,10 +29,13 @@ public class AdmCategoryController {
     CategoryService categoryService;
     @Autowired
     private Environment environment;
+    @Autowired
+    Cart cart;
 
 
     @GetMapping("categoryAdd")
     public String addCategory(Model model) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "categoryAdd");
         model.addAttribute("category", new Category());
         return "admin/categoryAdd";
@@ -39,7 +43,8 @@ public class AdmCategoryController {
 
     @PostMapping("/categoryAdd")
     public String employeeAdd(@Valid @ModelAttribute("category") Category category, BindingResult bindingResultUser, Model model) {
-        if (bindingResultUser.hasErrors()) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
+       if (bindingResultUser.hasErrors()) {
             return "admin/categoryAdd";
         } else {
             categoryService.saveCategory(category);
@@ -49,7 +54,7 @@ public class AdmCategoryController {
 
     @GetMapping("/categoriesList")
     public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page) {
-
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "categoriesList");
 
         int currentPage = page.orElse(1);
@@ -72,6 +77,7 @@ public class AdmCategoryController {
 
     @GetMapping("categoryEdit")
     public String editCategory(Model model,  @RequestParam(value = "categoryId", required = false) Optional<Integer> categoryId, @Valid @ModelAttribute("category") Category category, BindingResult bindingResult) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "categoriesList");
         model.addAttribute("category", categoryService.findById(categoryId.get()));
         if (bindingResult.hasErrors()) {
@@ -85,6 +91,7 @@ public class AdmCategoryController {
 
     @PostMapping("/categoryEdit")
     public String employeeEditPost(Model model, @Valid @ModelAttribute("category") Category category, BindingResult bindingResultUser) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "categoriesList");
         if (bindingResultUser.hasErrors()) {
             return "admin/categoryEdit";

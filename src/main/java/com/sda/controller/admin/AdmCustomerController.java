@@ -1,5 +1,6 @@
 package com.sda.controller.admin;
 
+import com.sda.entity.Cart;
 import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
@@ -29,10 +30,12 @@ public class AdmCustomerController {
     RoleRepository roleRepository;
     @Autowired
     Environment environment;
+    @Autowired
+    Cart cart;
 
     @GetMapping("/customersList")
     public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page) {
-
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "customersList");
 
         int currentPage = page.orElse(1);
@@ -55,6 +58,7 @@ public class AdmCustomerController {
 
     @GetMapping("/customerEdit")
     public String userEdit(Model model, @RequestParam(value = "userId", required = false) Optional<Integer> userId, @RequestParam(value = "delete", required = false) Optional<Integer> deleteUserId) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "customersList");
         if (deleteUserId.isPresent()) {
             if (userService.getUser().size() <= 1) {
@@ -76,6 +80,7 @@ public class AdmCustomerController {
 
     @PostMapping("/customerEdit")
     public String employeeEditPost(Model model, @Valid @ModelAttribute("user") User user, BindingResult bindingResultUser) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         if (bindingResultUser.hasErrors()) {
             return "admin/customerEdit";
         } else {

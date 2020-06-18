@@ -1,5 +1,6 @@
 package com.sda.controller.admin;
 
+import com.sda.entity.Cart;
 import com.sda.entity.User;
 import com.sda.repository.RoleRepository;
 import com.sda.service.UserService;
@@ -31,9 +32,12 @@ public class AdmEmployeeController {
     RoleRepository roleRepository;
     @Autowired
     Environment environment;
+    @Autowired
+    Cart cart;
 
     @GetMapping("/employeeAdd")
     public String employeeAdd(Model model) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("selectedMenu", "employeeAdd");
@@ -42,6 +46,7 @@ public class AdmEmployeeController {
 
     @PostMapping("/employeeAdd")
     public String employeeAdd(@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser, Model model) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         if (bindingResultUser.hasErrors()) {
             return "admin/employeeAdd";
         } else {
@@ -57,7 +62,7 @@ public class AdmEmployeeController {
     @GetMapping("/employeesList")
     public String employeesList(Model model, @RequestParam("page") Optional<Integer> page) {
         model.addAttribute("selectedMenu", "employeesList");
-
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         int currentPage = page.orElse(1);
         Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))), roleRepository.findByRole("ADMIN"));
 
@@ -78,7 +83,7 @@ public class AdmEmployeeController {
 
     @PostMapping("/employeesList")
     public String changePassword(Model model, User user, @RequestParam("page") Optional<Integer> page) {
-        System.out.println("++++" + user);
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         User foundUser = userService.getUserById(user.getId());
         foundUser.setPassword(user.getPassword());
         userService.saveUser(foundUser);
@@ -87,6 +92,7 @@ public class AdmEmployeeController {
 
     @GetMapping("/employeeEdit")
     public String userEdit(Model model, @RequestParam(value = "userId", required = false) Optional<Integer> userId, @RequestParam(value = "delete", required = false) Optional<Integer> deleteUserId) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "employeesList");
         if (deleteUserId.isPresent()) {
             if (userService.getUser().size() <= 1) {
@@ -108,6 +114,7 @@ public class AdmEmployeeController {
 
     @PostMapping("/employeeEdit")
     public String employeeEditPost(Model model,@Valid @ModelAttribute("user") User user, BindingResult bindingResultUser) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         if (bindingResultUser.hasErrors()) {
             return "admin/employeeEdit";
         } else {

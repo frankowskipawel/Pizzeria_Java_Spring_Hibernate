@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity4">
-
+<script src="https://use.fontawesome.com/c560c025cf.js"></script>
 <navbar th:fragment="navbar">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <!-- Brand/logo -->
@@ -48,13 +48,19 @@
                 </span>
             </li>
 
+
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/myAcount">Moje Konto</a>
             </li>
             <li class="nav-item" sec:authorize="isAuthenticated()">
                 <a class="nav-link" href="/logout">Wyloguj</a>
             </li>
-
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="/cart">  <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <span class="badge" style="background-color: red; color: white" th:text="${cartQuantity}">
+<!--                        <span th:text="${cartQuantity}"></span>-->
+                    </span></a>
+            </li>
         </ul>
     </nav>
     <div class="jumbotron text-center" style="background-image: url(/images/pizza_home.jpg); ">

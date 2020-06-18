@@ -1,6 +1,7 @@
 package com.sda.controller.admin;
 
 
+import com.sda.entity.Cart;
 import com.sda.entity.Product;
 import com.sda.service.ProductService;
 import com.sda.storage.StorageFileNotFoundException;
@@ -32,6 +33,9 @@ public class FileUploadController {
     public FileUploadController(StorageService storageService) {
         this.storageService = storageService;
     }
+
+    @Autowired
+    Cart cart;
 
 //	@GetMapping("/")
 //	public String listUploadedFiles(Model model) throws IOException {
