@@ -29,10 +29,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .passwordEncoder(bCryptPasswordEncoder);
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/cart/**").authenticated()
                 .anyRequest().permitAll()
