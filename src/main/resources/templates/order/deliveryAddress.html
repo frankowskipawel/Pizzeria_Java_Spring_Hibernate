@@ -29,13 +29,14 @@
             <h3>Adres dostawy  <a th:href="@{/myAcount}"
                                      class="btn btn-outline-success" role="button">Zmień</a></h3>
             <h7>
+
                 <span th:text="${user.firstName}"></span><br>
                 <span th:text="${user.lastName}"></span><br>
                 <span th:text="${user.address.street}"></span><br>
                 <span th:text="${user.address.postalCode}"></span><br>
                 <span th:text="${user.address.city}"></span><br>
                 <span th:text="${user.email}"></span><br>
-                <a th:href="@{/order/shipment}"
+                <a th:href="@{/order/delivery}"
                    class="btn btn-success pull-right" role="button">Dalej</a>
             </h7>
 
