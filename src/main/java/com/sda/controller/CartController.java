@@ -50,4 +50,44 @@ public class CartController {
         model.addAttribute("totalPrice", cart.getTotalPrice());
         return "cart/show";
     }
+
+    @GetMapping("/incrementAmount")
+    public String incrementAmount(Model model, @RequestParam("productId") int productId){
+        for (ProductItem productItem : cart.getProductItems()) {
+            if (productItem.getProduct().getId()==productId){
+                productItem.setQuantity(productItem.getQuantity()+1);
+                return "redirect:/cart/show";
+            }
+        }
+        return "redirect:/cart/show";
+    }
+
+    @GetMapping("/decrementAmount")
+    public String decrementAmount(Model model, @RequestParam("productId") int productId){
+        for (ProductItem productItem : cart.getProductItems()) {
+            if (productItem.getProduct().getId()==productId){
+                if (productItem.getQuantity()==1){return "redirect:/cart/show";}
+                productItem.setQuantity(productItem.getQuantity()-1);
+                return "redirect:/cart/show";
+            }
+        }
+        return "redirect:/cart/show";
+    }
+
+    @GetMapping("/delete")
+    public String delete(Model model, @RequestParam("productId") int productId){
+        for (ProductItem productItem : cart.getProductItems()) {
+            if (productItem.getProduct().getId()==productId){
+              cart.getProductItems().remove(productItem);
+                return "redirect:/cart/show";
+            }
+        }
+        return "redirect:/cart/show";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout(Model model, @RequestParam("productId") int productId){
+       if (cart.getProductItems().isEmpty()){return "redirect:/cart/show";}
+        return "redirect:/cart/order";
+    }
 }

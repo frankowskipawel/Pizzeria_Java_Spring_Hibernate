@@ -38,24 +38,27 @@
                         <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
                             <div class="col-3 col-sm-3 col-md-6 text-md-right d-flex align-items-center" style="padding-top: 5px">
 <!--                                <br>-->
-                                <h6><strong><span  th:text="${productItem.product.price}"></span><span class="text-muted">zł x</span></strong></h6>
+                                <h6><strong><span  th:text="${productItem.product.price}"></span><span class="text-muted">zł  x</span></strong></h6>
                             </div>
                             <div class="col-4 col-sm-4 col-md-4 d-flex align-items-center">
                                 <div class="quantity btn-group-vertical" >
 <!--                                                                    <input type="button" value="+" class="plus">-->
-                                    <a href="/cart/incrementAmount">
+<!--                                    th:href="@{/admin/customerEdit(userId=${user.id})}"-->
+                                    <a th:href="@{/cart/incrementAmount(productId=${productItem.product.id})}">
                                        <button class="btn btn-outline-dark btn-sm" style="width: 30px">+</button>
                                     </a>
                                     <input type="text" step="1" max="99" min="1"  title="Ilość" class="qty"
                                            size="3" th:attr="value = ${productItem.quantity+' szt'}" disabled>
-                                    <a href="/cart/decrementAmount">
+                                    <a th:href="@{/cart/decrementAmount(productId=${productItem.product.id})}">
                                        <button class="btn btn-outline-dark btn-sm" style="width: 30px">-</button>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-2 col-sm-2 col-md-2 text-right d-flex align-items-center">
-                                <button type="button" class="btn btn-outline-danger btn-xs">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                <a th:href="@{/cart/delete(productId=${productItem.product.id})}">
+                                    <button type="button" class="btn btn-outline-danger btn-xs"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </a>
+
                                 </button>
                             </div>
                         </div>
@@ -82,7 +85,7 @@
 <!--                    </div>-->
 <!--                </div>-->
                 <div class="pull-right" style="margin: 10px">
-                    <a href="" class="btn btn-success pull-right">Zamawiam</a>
+                    <a href="/cart/checkout" class="btn btn-success pull-right">Zamawiam</a>
                     <div class="pull-right" style="margin: 5px">
                         Suma: <b><span th:text="${totalPrice+'zł'}"></span></b>
                     </div>
