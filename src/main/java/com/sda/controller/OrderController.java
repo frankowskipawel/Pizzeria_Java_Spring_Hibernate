@@ -1,7 +1,10 @@
 package com.sda.controller;
 
 import com.sda.entity.Cart;
+import com.sda.entity.Order;
+import com.sda.entity.User;
 import com.sda.enums.Delivery;
+import com.sda.enums.Payment;
 import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
+
 @Controller
 @RequestMapping("/order")
 public class OrderController {
@@ -21,6 +26,8 @@ public class OrderController {
     Cart cart;
     @Autowired
     UserService userService;
+    @Autowired
+    Order order;
 
     @GetMapping("/deliveryAddress")
     public String deliveryAddress(Model model){
@@ -38,6 +45,11 @@ public class OrderController {
         model.addAttribute("productItems", cart.getProductItems());
         model.addAttribute("deliveries", Delivery.values());
         System.out.println(Delivery.values());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = userService.findUsersByEmail(auth.getName());
+        order.setDeliveryAddress(currentUser.getAddress().getfullAddress());
+        order.setUser(currentUser);
+        order.setProductItems(cart.getProductItems());
 
         return "order/delivery";
     }
@@ -46,11 +58,21 @@ public class OrderController {
     public String payment(Model model, @RequestParam("optradio") Delivery delivery){
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("productItems", cart.getProductItems());
-        model.addAttribute("deliveries", Delivery.values());
-        System.out.println(delivery.getName());
+        model.addAttribute("payments", Payment.values());
+        order.setDelivery(delivery);
+        BigDecimal amount = cart.getTotalPrice().add(new BigDecimal(delivery.getPrice()));
+        order.setAmount(amount);
 
+        return "order/payment";
+    }
 
-        return "order/delivery";
+    @PostMapping("/summary")
+    public String summary(Model model, @RequestParam("optradio") Payment payment){
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
+        model.addAttribute("productItems", cart.getProductItems());
+        model.addAttribute("order", order);
+        order.setPayment(payment);
+        return "order/summary";
     }
 
 }

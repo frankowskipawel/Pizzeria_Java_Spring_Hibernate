@@ -35,4 +35,8 @@ public class Address {
         return
                 street + ", " + postalCode + " " + city;
     }
+
+    public String getfullAddress(){
+        return street+", \n"+postalCode+" "+city;
+    }
 }

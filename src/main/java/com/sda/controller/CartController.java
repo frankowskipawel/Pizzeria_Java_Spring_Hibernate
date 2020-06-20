@@ -28,7 +28,7 @@ public class CartController {
         Product product = productService.findById(productId).get();
 
         if (cart.getProductItems().isEmpty()){
-            ProductItem productItem = new ProductItem(product, 1);
+            ProductItem productItem = new ProductItem(0,product, 1);
             cart.addProduct(productItem);
         } else {
             for (ProductItem productItem : cart.getProductItems()) {
@@ -37,7 +37,7 @@ public class CartController {
                     return "redirect:/cart/show";
                 }
             }
-            ProductItem productItem = new ProductItem(product, 1);
+            ProductItem productItem = new ProductItem(0, product, 1);
             cart.addProduct(productItem);
         }
         return "redirect:/cart/show";
