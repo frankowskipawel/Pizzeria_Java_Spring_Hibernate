@@ -31,7 +31,7 @@
             <h3>Sposób płatności</h3><br>
             <h7>
                 <form action="#" th:action="@{/order/summary}" method="post">
-
+                    <span th:text="${message}" style="color:red;font-size:12px"></span>
                     <div th:each="payment : ${payments}">
                         <div class="form-check">
                             <label class="form-check-label">

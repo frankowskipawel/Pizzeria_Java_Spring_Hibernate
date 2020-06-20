@@ -3,6 +3,8 @@ package com.sda.entity;
 
 import com.sda.validator.EmailExistConstrains;
 import lombok.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 import javax.persistence.*;
 import javax.validation.Valid;

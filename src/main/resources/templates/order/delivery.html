@@ -31,7 +31,7 @@
             <h3>Sposób dostawy</h3><br>
             <h7>
                 <form action="#" th:action="@{/order/payment}" method="post">
-
+                    <span th:text="${message}" style="color:red;font-size:12px"></span>
                     <div th:each="delivery : ${deliveries}">
                         <div class="form-check">
                             <label class="form-check-label">

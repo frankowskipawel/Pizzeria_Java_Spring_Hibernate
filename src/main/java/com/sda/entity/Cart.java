@@ -5,19 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 @Data
 @Service
 @SessionScope
 public class Cart {
 
-    private List<ProductItem> productItems = new ArrayList<>();
+    private Set<ProductItem> productItems;
 
     public Cart() {
-        this.productItems = new LinkedList<>();
+        this.productItems = new HashSet<>();
     }
 
     public void addProduct(ProductItem productItem){
