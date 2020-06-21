@@ -34,7 +34,7 @@ public class HomeController {
         authoritiesList.addAll(auth.getAuthorities());
         System.out.println("role = "+authoritiesList);
         System.out.println(auth.getName());
-
+        System.out.println("1234567890 CART = "+cart);
         return "home";
     }
 

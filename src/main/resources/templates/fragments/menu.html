@@ -6,8 +6,8 @@
             <a th:if="${selectedMenu=='home'}" class="nav-link active" href="/admin/home">Strona główna</a>
             <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Strona główna</a>
     </li>
-    <br>
-    <p>Produkty</p>
+<!--    <br>-->
+    <span>Produkty</span>
     <li class="nav-item">
         <a th:if="${selectedMenu=='productAdd'}" class="nav-link active" href="/admin/productAdd">Dodaj</a>
         <a th:unless="${selectedMenu=='productAdd'}" class="nav-link" href="/admin/productAdd">Dodaj</a>
@@ -17,8 +17,8 @@
         <a th:unless="${selectedMenu=='productsList'}" class="nav-link" href="/admin/productsList">Lista produktów</a>
     </li>
 
-    <br>
-    <p>Kategorie</p>
+<!--    <br>-->
+    <span>Kategorie</span>
 
     <li class="nav-item">
         <a th:if="${selectedMenu=='categoryAdd'}" class="nav-link active" href="/admin/categoryAdd">Dodaj</a>
@@ -28,8 +28,8 @@
         <a th:if="${selectedMenu=='categoriesList'}" class="nav-link active" href="/admin/categoriesList">Lista kategorii</a>
         <a th:unless="${selectedMenu=='categoriesList'}" class="nav-link" href="/admin/categoriesList">Lista kategorii</a>
     </li>
-    <br>
-    <p>Pracownicy</p>
+<!--    <br>-->
+    <span>Pracownicy</span>
 
     <li class="nav-item">
         <a th:if="${selectedMenu=='employeeAdd'}" class="nav-link active" href="/admin/employeeAdd">Dodaj</a>
@@ -38,16 +38,33 @@
     <li class="nav-item">
         <a th:if="${selectedMenu=='employeesList'}" class="nav-link active" href="/admin/employeesList">Lista pracowników</a>
         <a th:unless="${selectedMenu=='employeesList'}" class="nav-link" href="/admin/employeesList">Lista pracowników</a>
-<!--        <a class="nav-link" href="#">Lista pracowników</a>-->
     </li>
-    <br>
-    <p>Klienci</p>
+
+    <span>Klienci</span>
 
     <li class="nav-item">
         <a th:if="${selectedMenu=='customersList'}" class="nav-link active" href="/admin/customersList">Lista Klientów</a>
         <a th:unless="${selectedMenu=='customersList'}" class="nav-link" href="/admin/customersList">Lista Klientów</a>
-        <!--        <a class="nav-link" href="#">Lista pracowników</a>-->
+    </li>
+
+    <span>Dostawa</span>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='deliveryAdd'}" class="nav-link active" href="/admin/deliveryAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='deliveryAdd'}" class="nav-link" href="/admin/deliveryAdd">Dodaj</a>
+    </li>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='deliveriesList'}" class="nav-link active" href="/admin/deliveriesList">Lista dostaw</a>
+        <a th:unless="${selectedMenu=='deliveriesList'}" class="nav-link" href="/admin/deliveriesList">Lista dostaw</a>
+    </li>
+
+    <span>Płatność</span>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='paymentAdd'}" class="nav-link active" href="/admin/paymentAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='paymentAdd'}" class="nav-link" href="/admin/paymentAdd">Dodaj</a>
+    </li>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='paymentsList'}" class="nav-link active" href="/admin/paymentsList">Lista płatności</a>
+        <a th:unless="${selectedMenu=='paymentsList'}" class="nav-link" href="/admin/paymentsList">Lista płatności</a>
     </li>
 </ul>
-<!--    <span th:text="${active}">id</span>-->
 </menu>

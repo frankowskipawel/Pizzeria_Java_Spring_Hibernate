@@ -1,8 +1,6 @@
 package com.sda.service;
 
 import com.sda.entity.Category;
-import com.sda.entity.Role;
-import com.sda.entity.User;
 import com.sda.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

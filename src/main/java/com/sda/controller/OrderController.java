@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 @Controller
 @RequestMapping("/order")
@@ -61,7 +62,6 @@ public class OrderController {
         order.setDeliveryAddress(currentUser.getAddress().getfullAddress());
         order.setUser(currentUser);
         order.setProductItems(cart.getProductItems());
-//        orderService.save(order);
         return "order/delivery";
     }
 
@@ -103,6 +103,7 @@ public class OrderController {
 
     @PostMapping("/confirmed")
     public String confirmed(Model model){
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
         Order orderToSave = new Order();
         for (ProductItem productItem : order.getProductItems()) {
             productItem.setProduct(productService.findById(productItem.getProduct().getId()).get());
@@ -114,8 +115,8 @@ public class OrderController {
         orderToSave.setDelivery(order.getDelivery());
         orderToSave.setDeliveryAddress(order.getDeliveryAddress());
         orderService.save(orderToSave);
-        cart = new Cart();
-        order = new Order();
+        cart.getProductItems().clear();
+        order.getProductItems().clear();
         return "home";
     }
 }
