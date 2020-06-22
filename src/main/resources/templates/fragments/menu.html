@@ -6,6 +6,13 @@
             <a th:if="${selectedMenu=='home'}" class="nav-link active" href="/admin/home">Strona główna</a>
             <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Strona główna</a>
     </li>
+    <!--    <br>-->
+    <span>Zamówienia</span>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='orders'}" class="nav-link active" href="/admin/orders">Lista zamówień</a>
+        <a th:unless="${selectedMenu=='orders'}" class="nav-link" href="/admin/orders">Lista zamówień</a>
+    </li>
+
 <!--    <br>-->
     <span>Produkty</span>
     <li class="nav-item">

@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/order")
@@ -63,16 +62,10 @@ public class OrderController {
 
     @PostMapping("/payment")
     public String payment(Model model, @RequestParam(value = "optradio", required = false) int deliveryId) {
-
+        System.out.println(deliveryId);
         Delivery delivery = deliveryService.findById(deliveryId).get();
-        System.out.println(delivery);
-        if (delivery == null) {
-            model.addAttribute("message", "Wybierz sposób dostawy");
-            model.addAttribute("cartQuantity", cart.getCartQuantity());
-            model.addAttribute("productItems", cart.getProductItems());
-            model.addAttribute("deliveries", deliveryService.findAll());
-            return "order/delivery";
-        }
+        System.out.println(deliveryId);
+
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("productItems", cart.getProductItems());
         model.addAttribute("payments", paymentService.findAll());
@@ -86,13 +79,7 @@ public class OrderController {
     @PostMapping("/summary")
     public String summary(Model model, @RequestParam(value = "optradio", required = false) int paymentId) {
         Payment payment = paymentService.findById(paymentId).get();
-        if (payment==null){
-            model.addAttribute("message", "Wybierz sposób zapłaty");
-            model.addAttribute("cartQuantity", cart.getCartQuantity());
-            model.addAttribute("productItems", cart.getProductItems());
-            model.addAttribute("payments", paymentService.findAll());
-            return "order/payment";
-        }
+
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("productItems", cart.getProductItems());
         model.addAttribute("order", order);
@@ -114,6 +101,7 @@ public class OrderController {
         orderToSave.setUser(order.getUser());
         orderToSave.setDelivery(order.getDelivery());
         orderToSave.setDeliveryAddress(order.getDeliveryAddress());
+        orderToSave.setDate(new Date());
         orderService.save(orderToSave);
         cart.getProductItems().clear();
         order.getProductItems().clear();
