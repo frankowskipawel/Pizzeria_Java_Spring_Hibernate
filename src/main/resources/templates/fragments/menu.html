@@ -7,71 +7,96 @@
             <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Strona główna</a>
     </li>
     <!--    <br>-->
-    <span>Zamówienia</span>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='orders'}" class="nav-link active" href="/admin/orders">Lista zamówień</a>
-        <a th:unless="${selectedMenu=='orders'}" class="nav-link" href="/admin/orders">Lista zamówień</a>
-    </li>
 
-<!--    <br>-->
-    <span>Produkty</span>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='productAdd'}" class="nav-link active" href="/admin/productAdd">Dodaj</a>
-        <a th:unless="${selectedMenu=='productAdd'}" class="nav-link" href="/admin/productAdd">Dodaj</a>
-    </li>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='productsList'}" class="nav-link active" href="/admin/productsList">Lista produktów</a>
-        <a th:unless="${selectedMenu=='productsList'}" class="nav-link" href="/admin/productsList">Lista produktów</a>
-    </li>
+    <button data-toggle="collapse" data-target="#order" class="btn btn-outline-primary">Zamówienia</button>
+    <div th:classappend="${selectedMenu == 'orders'}  ? 'show'" style="margin-right: 10%; margin-left: 10%" id="order" class="collapse">
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='orders'}" class="nav-link active btn-sm" href="/admin/orders">Lista zamówień</a>
+            <a th:unless="${selectedMenu=='orders'}" class="nav-link btn-sm" href="/admin/orders">Lista zamówień</a>
+        </li>
+    </div>
 
-<!--    <br>-->
-    <span>Kategorie</span>
 
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='categoryAdd'}" class="nav-link active" href="/admin/categoryAdd">Dodaj</a>
-        <a th:unless="${selectedMenu=='categoryAdd'}" class="nav-link" href="/admin/categoryAdd">Dodaj</a>
-    </li>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='categoriesList'}" class="nav-link active" href="/admin/categoriesList">Lista kategorii</a>
-        <a th:unless="${selectedMenu=='categoriesList'}" class="nav-link" href="/admin/categoriesList">Lista kategorii</a>
-    </li>
-<!--    <br>-->
-    <span>Pracownicy</span>
 
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='employeeAdd'}" class="nav-link active" href="/admin/employeeAdd">Dodaj</a>
-        <a th:unless="${selectedMenu=='employeeAdd'}" class="nav-link" href="/admin/employeeAdd">Dodaj</a>
-    </li>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='employeesList'}" class="nav-link active" href="/admin/employeesList">Lista pracowników</a>
-        <a th:unless="${selectedMenu=='employeesList'}" class="nav-link" href="/admin/employeesList">Lista pracowników</a>
-    </li>
+    <button data-toggle="collapse" data-target="#product" class="btn btn-outline-primary">Produkty</button>
+<!--    th:class="${feedback.message.rating} >= 5 ? 'active'"-->
+<!--    <div id="product" class="collapse">-->
+<!--    <div th:if="${selectedMenu=='productAdd'}" id="product" class="collapse show">-->
+    <div style="margin-right: 10%; margin-left: 10%" th:classappend="${selectedMenu == 'productAdd' or selectedMenu == 'productsList'}  ? 'show'" id="product" class="collapse">
 
-    <span>Klienci</span>
 
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='customersList'}" class="nav-link active" href="/admin/customersList">Lista Klientów</a>
-        <a th:unless="${selectedMenu=='customersList'}" class="nav-link" href="/admin/customersList">Lista Klientów</a>
-    </li>
+<!--    <div th:unless="${selectedMenu=='productAdd'}" id="product" class="collapse">-->
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='productAdd'}" class="nav-link active btn-sm" href="/admin/productAdd">Dodaj</a>
+            <a th:unless="${selectedMenu=='productAdd'}" class="nav-link btn-sm" href="/admin/productAdd">Dodaj</a>
+        </li>
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='productsList'}" class="nav-link active btn-sm" href="/admin/productsList">Lista produktów</a>
+            <a th:unless="${selectedMenu=='productsList'}" class="nav-link btn-sm" href="/admin/productsList">Lista produktów</a>
+        </li>
+    </div>
 
-    <span>Dostawa</span>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='deliveryAdd'}" class="nav-link active" href="/admin/deliveryAdd">Dodaj</a>
-        <a th:unless="${selectedMenu=='deliveryAdd'}" class="nav-link" href="/admin/deliveryAdd">Dodaj</a>
-    </li>
-    <li class="nav-item">
-        <a th:if="${selectedMenu=='deliveriesList'}" class="nav-link active" href="/admin/deliveriesList">Lista dostaw</a>
-        <a th:unless="${selectedMenu=='deliveriesList'}" class="nav-link" href="/admin/deliveriesList">Lista dostaw</a>
-    </li>
 
-    <span>Płatność</span>
+
+
+    <button data-toggle="collapse" data-target="#category" class="btn btn-outline-primary">Kategorie</button>
+    <div  th:classappend="${selectedMenu == 'categoryAdd' or selectedMenu == 'categoriesList'}  ? 'show'" style="margin-right: 10%; margin-left: 10%" id="category" class="collapse">
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='categoryAdd'}" class="nav-link active btn-sm" href="/admin/categoryAdd">Dodaj</a>
+            <a th:unless="${selectedMenu=='categoryAdd'}" class="nav-link btn-sm" href="/admin/categoryAdd">Dodaj</a>
+        </li>
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='categoriesList'}" class="nav-link active btn-sm" href="/admin/categoriesList">Lista kategorii</a>
+            <a th:unless="${selectedMenu=='categoriesList'}" class="nav-link btn-sm" href="/admin/categoriesList">Lista kategorii</a>
+        </li>
+    </div>
+
+
+    <button data-toggle="collapse" data-target="#employee" class="btn btn-outline-primary">Pracownicy</button>
+    <div  th:classappend="${selectedMenu == 'employeeAdd' or selectedMenu == 'employeesList'}  ? 'show'"style="margin-right: 10%; margin-left: 10%"  id="employee" class="collapse">
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='employeeAdd'}" class="nav-link active btn-sm" href="/admin/employeeAdd">Dodaj</a>
+            <a th:unless="${selectedMenu=='employeeAdd'}" class="nav-link btn-sm" href="/admin/employeeAdd">Dodaj</a>
+        </li>
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='employeesList'}" class="nav-link active btn-sm" href="/admin/employeesList">Lista pracowników</a>
+            <a th:unless="${selectedMenu=='employeesList'}" class="nav-link btn-sm" href="/admin/employeesList">Lista pracowników</a>
+        </li>
+    </div>
+
+
+    <button data-toggle="collapse" data-target="#customer" class="btn btn-outline-primary">Klienci</button>
+    <div  th:classappend="${selectedMenu == 'customersList'}  ? 'show'" style="margin-right: 10%; margin-left: 10%" id="customer" class="collapse">
+        <li class="nav-item">
+            <a th:if="${selectedMenu=='customersList'}" class="nav-link active btn-sm" href="/admin/customersList">Lista Klientów</a>
+            <a th:unless="${selectedMenu=='customersList'}" class="nav-link btn-sm" href="/admin/customersList">Lista Klientów</a>
+        </li>
+    </div>
+
+
+    <button data-toggle="collapse" data-target="#delivery" class="btn btn-outline-primary">Dostawa</button>
+    <div  th:classappend="${selectedMenu == 'deliveryAdd' or selectedMenu == 'deliveriesList'}  ? 'show'" style="margin-right: 10%; margin-left: 10%" id="delivery" class="collapse">
     <li class="nav-item">
-        <a th:if="${selectedMenu=='paymentAdd'}" class="nav-link active" href="/admin/paymentAdd">Dodaj</a>
-        <a th:unless="${selectedMenu=='paymentAdd'}" class="nav-link" href="/admin/paymentAdd">Dodaj</a>
+        <a th:if="${selectedMenu=='deliveryAdd'}" class="nav-link active btn-sm" href="/admin/deliveryAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='deliveryAdd'}" class="nav-link btn-sm" href="/admin/deliveryAdd">Dodaj</a>
     </li>
     <li class="nav-item">
-        <a th:if="${selectedMenu=='paymentsList'}" class="nav-link active" href="/admin/paymentsList">Lista płatności</a>
-        <a th:unless="${selectedMenu=='paymentsList'}" class="nav-link" href="/admin/paymentsList">Lista płatności</a>
+        <a th:if="${selectedMenu=='deliveriesList'}" class="nav-link active btn-sm" href="/admin/deliveriesList">Lista dostaw</a>
+        <a th:unless="${selectedMenu=='deliveriesList'}" class="nav-link btn-sm" href="/admin/deliveriesList">Lista dostaw</a>
     </li>
+    </div>
+
+
+    <button data-toggle="collapse" data-target="#payment" class="btn btn-outline-primary">Płatność</button>
+    <div  th:classappend="${selectedMenu == 'paymentAdd' or selectedMenu == 'paymentsList'}  ? 'show'" style="margin-right: 10%; margin-left: 10%" id="payment" class="collapse">
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='paymentAdd'}" class="nav-link active btn-sm" href="/admin/paymentAdd">Dodaj</a>
+        <a th:unless="${selectedMenu=='paymentAdd'}" class="nav-link btn-sm" href="/admin/paymentAdd">Dodaj</a>
+    </li>
+    <li class="nav-item">
+        <a th:if="${selectedMenu=='paymentsList'}" class="nav-link active btn-sm" href="/admin/paymentsList">Lista płatności</a>
+        <a th:unless="${selectedMenu=='paymentsList'}" class="nav-link btn-sm" href="/admin/paymentsList">Lista płatności</a>
+    </li>
+    </div>
 </ul>
 </menu>
