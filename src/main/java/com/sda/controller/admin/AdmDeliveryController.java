@@ -106,7 +106,7 @@ public class AdmDeliveryController {
             model.addAttribute("category", foundDelivery);
             deliveryService.save(foundDelivery);
             System.out.println(delivery);
-            return "redirect:/admin/categoriesList";
+            return "redirect:/admin/deliveriesList";
         }
 
     }

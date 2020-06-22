@@ -30,7 +30,6 @@ public class Delivery {
     @NotBlank(message = "{notempty}")
     String name;
     @NotNull(message = "{notempty}")
-    @Positive(message = "{incorectFormat}")
     @NumberFormat
     @Digits(integer=10, fraction=2, message = "{incorectFormat}")
     BigDecimal price;

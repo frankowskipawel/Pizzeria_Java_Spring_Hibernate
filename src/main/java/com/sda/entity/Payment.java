@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Builder
 @Data
@@ -20,6 +22,7 @@ public class Payment {
 
     @Id
     @GeneratedValue
-    int id;
-    String name;
+    private int id;
+    @NotBlank(message = "{notempty}")
+    private String name;
 }
