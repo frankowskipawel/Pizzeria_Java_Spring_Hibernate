@@ -35,7 +35,7 @@
                     <div th:each="payment : ${payments}">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optradio" th:value="${payment}">
+                                <input type="radio" class="form-check-input" name="optradio" th:value="${payment.id}">
                                 <span th:text="${payment.name}"></span>
                             </label>
                         </div>

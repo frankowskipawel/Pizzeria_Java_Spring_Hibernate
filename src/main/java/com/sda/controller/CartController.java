@@ -86,8 +86,8 @@ public class CartController {
     }
 
     @GetMapping("/checkout")
-    public String checkout(Model model, @RequestParam("productId") int productId){
+    public String checkout(){
        if (cart.getProductItems().isEmpty()){return "redirect:/cart/show";}
-        return "redirect:/cart/order";
+        return "redirect:/order/deliveryAddress";
     }
 }

@@ -1,7 +1,6 @@
 package com.sda.entity;
 
-import com.sda.enums.Delivery;
-import com.sda.enums.Payment;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,8 +29,10 @@ public class Order {
     private int id;
     private Date date;
     private BigDecimal amount;
+    @ManyToOne
     private Delivery delivery;
     private String deliveryAddress;
+    @ManyToOne
     private Payment payment;
     @ManyToOne
     private User user;

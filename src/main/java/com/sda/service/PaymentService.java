@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,5 +31,9 @@ public class PaymentService {
 
     public void delete(Payment payment){
         paymentRepository.delete(payment);
+    }
+
+    public List<Payment> findAll(){
+        return paymentRepository.findAll();
     }
 }

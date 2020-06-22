@@ -1,15 +1,8 @@
 package com.sda.controller;
 
-import com.sda.entity.Cart;
-import com.sda.entity.Order;
-import com.sda.entity.ProductItem;
-import com.sda.entity.User;
-import com.sda.enums.Delivery;
-import com.sda.enums.Payment;
-import com.sda.service.OrderService;
-import com.sda.service.ProductItemService;
-import com.sda.service.ProductService;
-import com.sda.service.UserService;
+import com.sda.entity.*;
+
+import com.sda.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,6 +33,10 @@ public class OrderController {
     ProductItemService productItemService;
     @Autowired
     ProductService productService;
+    @Autowired
+    DeliveryService deliveryService;
+    @Autowired
+    PaymentService paymentService;
 
     @GetMapping("/deliveryAddress")
     public String deliveryAddress(Model model) {
@@ -55,8 +52,7 @@ public class OrderController {
     public String delivery(Model model) {
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("productItems", cart.getProductItems());
-        model.addAttribute("deliveries", Delivery.values());
-        System.out.println(Delivery.values());
+        model.addAttribute("deliveries", deliveryService.findAll());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User currentUser = userService.findUsersByEmail(auth.getName());
         order.setDeliveryAddress(currentUser.getAddress().getfullAddress());
@@ -66,31 +62,35 @@ public class OrderController {
     }
 
     @PostMapping("/payment")
-    public String payment(Model model, @RequestParam(value = "optradio", required = false) Delivery delivery) {
+    public String payment(Model model, @RequestParam(value = "optradio", required = false) int deliveryId) {
+
+        Delivery delivery = deliveryService.findById(deliveryId).get();
+        System.out.println(delivery);
         if (delivery == null) {
             model.addAttribute("message", "Wybierz sposób dostawy");
             model.addAttribute("cartQuantity", cart.getCartQuantity());
             model.addAttribute("productItems", cart.getProductItems());
-            model.addAttribute("deliveries", Delivery.values());
+            model.addAttribute("deliveries", deliveryService.findAll());
             return "order/delivery";
         }
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("productItems", cart.getProductItems());
-        model.addAttribute("payments", Payment.values());
+        model.addAttribute("payments", paymentService.findAll());
         order.setDelivery(delivery);
-        BigDecimal amount = cart.getTotalPrice().add(new BigDecimal(delivery.getPrice()));
+        BigDecimal amount = cart.getTotalPrice().add(delivery.getPrice());
         order.setAmount(amount);
 
         return "order/payment";
     }
 
     @PostMapping("/summary")
-    public String summary(Model model, @RequestParam(value = "optradio", required = false) Payment payment) {
+    public String summary(Model model, @RequestParam(value = "optradio", required = false) int paymentId) {
+        Payment payment = paymentService.findById(paymentId).get();
         if (payment==null){
             model.addAttribute("message", "Wybierz sposób zapłaty");
             model.addAttribute("cartQuantity", cart.getCartQuantity());
             model.addAttribute("productItems", cart.getProductItems());
-            model.addAttribute("payments", Payment.values());
+            model.addAttribute("payments", paymentService.findAll());
             return "order/payment";
         }
         model.addAttribute("cartQuantity", cart.getCartQuantity());

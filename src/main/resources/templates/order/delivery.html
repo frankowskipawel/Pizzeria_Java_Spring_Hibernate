@@ -35,7 +35,7 @@
                     <div th:each="delivery : ${deliveries}">
                         <div class="form-check">
                             <label class="form-check-label">
-                                <input type="radio" class="form-check-input" name="optradio" th:value="${delivery}">
+                                <input type="radio" class="form-check-input" name="optradio" th:value="${delivery.id}">
                                 <span th:text="${delivery.name+' - '+delivery.price+'zł'}"></span>
                             </label>
                         </div>
