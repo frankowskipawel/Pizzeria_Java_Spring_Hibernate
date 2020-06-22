@@ -52,7 +52,7 @@ public class AdmDeliveryController {
     @GetMapping("/deliveriesList")
     public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page) {
         model.addAttribute("cartQuantity", cart.getCartQuantity());
-        model.addAttribute("selectedMenu", "categoriesList");
+        model.addAttribute("selectedMenu", "deliveriesList");
 
         int currentPage = page.orElse(1);
 
@@ -73,10 +73,16 @@ public class AdmDeliveryController {
     }
 
     @GetMapping("deliveryEdit")
-    public String editCategory(Model model,  @RequestParam(value = "deliveryId", required = false) Optional<Integer> deliveryId, @Valid @ModelAttribute("delivery") Delivery delivery, BindingResult bindingResult) {
+    public String editCategory(Model model,  @RequestParam(value = "deliveryId", required = false) Optional<Integer> deliveryId, @RequestParam(value = "delete", required = false) Optional<Integer> deleteId, @Valid @ModelAttribute("delivery") Delivery delivery, BindingResult bindingResult) {
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "deliveriesList");
+        if (deleteId.isPresent()){
+            deliveryService.delete(deliveryService.findById(deleteId.get()).get());
+            return "redirect:/admin/deliveriesList";
+        }
+        model.addAttribute("deliveryId", deliveryId.get());
         model.addAttribute("delivery", deliveryService.findById(deliveryId.get()));
+
         if (bindingResult.hasErrors()) {
             return "admin/deliveryEdit";
         } else {

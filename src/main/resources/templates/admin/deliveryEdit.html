@@ -15,7 +15,9 @@
         </div>
         <div class="col-sm-9">
             <h2>Edycja dostawy</h2>
-
+            <br>
+            <a class="btn btn-primary btn" th:href="@{/admin/deliveryEdit(delete=${deliveryId})}">Usuń</a>
+            <br><br>
             <form action="#" th:action="@{/admin/deliveryAdd}" method="post" th:object="${delivery}" class="needs-validated" novalidate>
 
                 <div class="form-group">
@@ -29,13 +31,8 @@
 
                 <button type="submit" class="btn btn-primary">Zapisz</button>
             </form>
-
-
         </div>
-
     </div>
-
-
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>

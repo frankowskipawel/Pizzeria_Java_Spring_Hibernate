@@ -27,4 +27,8 @@ public class DeliveryService {
     public Optional<Delivery> findById(int id){
         return deliveryRepository.findById(id);
     }
+
+    public void delete(Delivery delivery){
+        deliveryRepository.delete(delivery);
+    }
 }
