@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<!--header-->
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div th:insert="fragments/menu :: menu"></div>
+
+
+        </div>
+        <div class="col-sm-9">
+
+
+            <h2>Zamówienia</h2>
+            <br>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Data</th>
+                    <th>Klient</th>
+                    <th>Kwota</th>
+                    <th>Status</th>
+                    <th></th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <!--                <tr th:each="user : ${users}">-->
+
+                <tr th:each="order:${pages}" th:object="${orders}">
+
+                    <td><span th:text="${order.id}"></span></td>
+                    <td><span th:text="${#dates.format(order.date, 'dd-MM-yyyy')}"></span></td>
+                    <td><span th:text="${order.user.firstName+' '+order.user.lastName}"></span></td>
+                    <td><span th:text="${order.amount}"></span></td>
+                    <td><span th:text="${order.orderStatus.message}"></span></td>
+
+                    <td>
+                        <div class="btn-group-vertical">
+                            <!--                            <button id="btn-editEmail" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal" class="btn pull-right middle btn-primary"><span class="glyphicon glyphicon-pencil"></span>  Edit</button>-->
+
+                            <!--                            <button type="button" class="btn btn-primary btn-sm" >Edytuj</button>-->
+<!--                            <a th:href="@{/admin/deliveryEdit(deliveryId=${delivery.id})}" class="btn btn-primary btn-sm" role="button">Edit</a>-->
+
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div th:insert="fragments/pagination :: pagination"></div>
+            <!--            <div th:insert="fragments/_editUser :: editUserModal"/>-->
+        </div>
+
+    </div>
+
+
+</div>
+<!--footer-->
+<div th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>
+
+

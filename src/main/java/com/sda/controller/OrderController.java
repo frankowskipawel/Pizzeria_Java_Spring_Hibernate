@@ -2,6 +2,7 @@ package com.sda.controller;
 
 import com.sda.entity.*;
 
+import com.sda.enums.OrderStatus;
 import com.sda.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -72,7 +73,6 @@ public class OrderController {
         order.setDelivery(delivery);
         BigDecimal amount = cart.getTotalPrice().add(delivery.getPrice());
         order.setAmount(amount);
-
         return "order/payment";
     }
 
@@ -102,6 +102,7 @@ public class OrderController {
         orderToSave.setDelivery(order.getDelivery());
         orderToSave.setDeliveryAddress(order.getDeliveryAddress());
         orderToSave.setDate(new Date());
+        orderToSave.setOrderStatus(OrderStatus.ACCEPTED);
         orderService.save(orderToSave);
         cart.getProductItems().clear();
         order.getProductItems().clear();

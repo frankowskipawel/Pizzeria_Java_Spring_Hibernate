@@ -1,6 +1,7 @@
 package com.sda.entity;
 
 
+import com.sda.enums.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,7 @@ public class Order {
     private Payment payment;
     @ManyToOne
     private User user;
+    private OrderStatus orderStatus;
 //    @ManyToMany
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    @JoinTable(name = "order_products", joinColumns = @JoinColumn(name = "order_id"), inverseJoinColumns = @JoinColumn(name = "productItem_id"))
