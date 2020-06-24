@@ -92,8 +92,8 @@
                     </td>
                     <td><span th:text="${productItem.product.category.name}"></span></td>
                     <td><span th:text="${productItem.quantity}"></span></td>
-                    <td><span th:text="${productItem.product.price}"></span></td>
-                    <td><span th:text="${productItem.product.price*productItem.quantity}"></span></td>
+                    <td style="text-align: right"><span th:text="${productItem.product.price}"></span></td>
+                    <td style="text-align: right"><span th:text="${productItem.product.price*productItem.quantity}"></span></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -102,7 +102,7 @@
                     <td></td>
 
                     <td colspan="2">Suma</td>
-                    <td><span th:text="${order.amount-order.delivery.price}"></span></td>
+                    <td style="text-align: right"><span th:text="${order.amount-order.delivery.price}"></span></td>
                 </tr>
                 <tr>
                     <td></td>
@@ -110,7 +110,7 @@
                     <td></td>
                     <td></td>
                     <td colspan="2"><span th:text="${order.delivery.name}"></span></td>
-                    <td><span th:text="${order.delivery.price}"></span></td>
+                    <td style="text-align: right"><span th:text="${order.delivery.price}"></span></td>
                 </tr>
 
                 <tr>
@@ -119,7 +119,7 @@
                     <td></td>
                     <td></td>
                     <td colspan="2"><h5>DO ZAPŁATY</h5></td>
-                    <td><h5><span th:text="${order.amount+'zł'}"></span></h5></td>
+                    <td style="text-align: right"><h5><span th:text="${order.amount+'zł'}"></span></h5></td>
                 </tr>
                 </tbody>
             </table>

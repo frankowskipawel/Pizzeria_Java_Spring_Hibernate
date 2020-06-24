@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +34,9 @@ public class AdmOrderController {
         model.addAttribute("selectedMenu", "orders");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         int currentPage = page.orElse(1);
-        Page<Order> orderPage = orderService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))));
+        int quantityPerPage = Integer.parseInt(environment.getProperty("quantityPerPage"));
+        Pageable pageable = PageRequest.of(currentPage - 1, quantityPerPage, Sort.by("date").descending());
+        Page<Order> orderPage = orderService.findAllPagination(pageable);
 
         model.addAttribute("pages", orderPage);
         int totalPages = orderPage.getTotalPages();
@@ -50,6 +54,7 @@ public class AdmOrderController {
     @GetMapping("/orderDetails")
     public String orderDetails(Model model,
                                @RequestParam(value = "orderId", required = false) int orderId) {
+        model.addAttribute("selectedMenu", "orders");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         Order order = orderService.findById(orderId).get();
         model.addAttribute("order", order);
@@ -62,6 +67,7 @@ public class AdmOrderController {
     public String orderStatus(Model model,
                               @RequestParam("orderStatus") OrderStatus orderStatus,
                               @ModelAttribute("order") Order order) {
+        model.addAttribute("selectedMenu", "orders");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         Order orderFromDB = orderService.findById(order.getId()).get();
         orderFromDB.setOrderStatus(orderStatus);

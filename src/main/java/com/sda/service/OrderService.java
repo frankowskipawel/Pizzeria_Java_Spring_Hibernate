@@ -25,6 +25,8 @@ public class OrderService {
     public List<Order> findAll(){
         return orderRepository.findAll();
     }
+
+
     public Page<Order> findAllPagination(Pageable pageable) {
         return orderRepository.findAll(pageable);
     }
