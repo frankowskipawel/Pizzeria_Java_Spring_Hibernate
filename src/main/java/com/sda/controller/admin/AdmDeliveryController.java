@@ -56,7 +56,7 @@ public class AdmDeliveryController {
 
         int currentPage = page.orElse(1);
 
-        Page<Delivery> deliveryPage = deliveryService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))));
+        Page<Delivery> deliveryPage = deliveryService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))));
 
         model.addAttribute("pages", deliveryPage);
         int totalPages = deliveryPage.getTotalPages();

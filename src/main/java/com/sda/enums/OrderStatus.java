@@ -1,10 +1,11 @@
 package com.sda.enums;
 
 public enum OrderStatus {
-    ACCEPTED ("Przyjęte"),
+    RECEIVED("Przyjęte"),
     IN_PROGRESS ("W trakcie realizacji"),
-    SHIPPED ("Wysłane"),
-    DELIVERED ("Dostarczone");
+    IN_DELIVERY ("Wysłane"),
+    DELIVERED ("Dostarczone"),
+    CANCELLED("Anulowane");
 
     public String message;
 

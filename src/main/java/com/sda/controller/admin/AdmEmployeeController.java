@@ -64,7 +64,7 @@ public class AdmEmployeeController {
         model.addAttribute("selectedMenu", "employeesList");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         int currentPage = page.orElse(1);
-        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))), roleRepository.findByRole("ADMIN"));
+        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))), roleRepository.findByRole("ADMIN"));
 
         model.addAttribute("pages", userPage);
         int totalPages = userPage.getTotalPages();

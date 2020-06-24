@@ -40,7 +40,7 @@ public class AdmCustomerController {
 
         int currentPage = page.orElse(1);
 
-        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))), roleRepository.findByRole("USER"));
+        Page<User> userPage = userService.findByRoles(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))), roleRepository.findByRole("USER"));
 
         model.addAttribute("pages", userPage);
         int totalPages = userPage.getTotalPages();

@@ -59,7 +59,7 @@ public class AdmCategoryController {
 
         int currentPage = page.orElse(1);
 
-        Page<Category> categoryPage = categoryService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))));
+        Page<Category> categoryPage = categoryService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))));
 
         model.addAttribute("pages", categoryPage);
         int totalPages = categoryPage.getTotalPages();

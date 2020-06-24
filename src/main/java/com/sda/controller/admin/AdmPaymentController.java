@@ -55,7 +55,7 @@ public class AdmPaymentController {
 
         int currentPage = page.orElse(1);
 
-        Page<Payment> paymentPage = paymentService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))));
+        Page<Payment> paymentPage = paymentService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))));
 
         model.addAttribute("pages", paymentPage);
         int totalPages = paymentPage.getTotalPages();

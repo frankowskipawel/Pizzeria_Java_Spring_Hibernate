@@ -102,7 +102,7 @@ public class OrderController {
         orderToSave.setDelivery(order.getDelivery());
         orderToSave.setDeliveryAddress(order.getDeliveryAddress());
         orderToSave.setDate(new Date());
-        orderToSave.setOrderStatus(OrderStatus.ACCEPTED);
+        orderToSave.setOrderStatus(OrderStatus.RECEIVED);
         orderService.save(orderToSave);
         cart.getProductItems().clear();
         order.getProductItems().clear();

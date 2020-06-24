@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -26,5 +27,9 @@ public class OrderService {
     }
     public Page<Order> findAllPagination(Pageable pageable) {
         return orderRepository.findAll(pageable);
+    }
+
+    public Optional<Order> findById(int id){
+        return orderRepository.findById(id);
     }
 }

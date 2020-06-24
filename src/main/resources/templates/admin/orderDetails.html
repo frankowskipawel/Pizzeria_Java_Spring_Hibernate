@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <div th:insert="fragments/head :: head"></div>
+</head>
+<body>
+<!--header-->
+<div th:insert="fragments/navbar :: navbar"></div>
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div th:insert="fragments/menu :: menu"></div>
+        </div>
+        <div class="col-sm-9">
+            <div class="col">
+
+                <div class="row">
+                    <div class="col">
+
+                        <h2>Szczegóły zamówienia</h2><br>
+                        <h7>
+                            <form action="#" th:action="@{/order/confirmed}" method="post">
+                                <div class="container">
+                                    <h5>Imię i nazwisko:</span></h5>
+                                    <h7><span th:text="${order.user.firstName+' '+order.user.lastName}"></span></h7>
+                                </div>
+                                <div class="container">
+                                    <h5>Adres dostawy:</span></h5>
+                                    <h7><span th:text="${order.deliveryAddress}"></span></h7>
+                                </div>
+                                <div class="container">
+                                    <h5>Sposób dostawy:</span></h5>
+                                    <h7><span th:text="${order.delivery.name+' - '+order.delivery.price+'zł'}"></span>
+                                    </h7>
+                                </div>
+                                <div class="container">
+                                    <h5>Płatność:</span></h5>
+                                    <h7><span th:text="${order.payment.name}"></span></h7>
+                                </div>
+                                <div class="container">
+                                    <h5>Kwota do zapłaty:</span></h5>
+                                    <h7><span th:text="${order.amount+'zł'}"></span></h7>
+                                </div>
+                            </form>
+                        </h7>
+                    </div>
+
+
+                    <div class="col">
+                        <form action="#" th:action="@{/admin/orderDetails}" method="post" th:object="${order}">
+                            <input type="hidden" id="id"  class="form-control" th:field="${order.id}"/>
+                        <h7 >Status zamówienia</h7><br>
+                        <select th:object="${orderStatus}" class="form-control" th:name="message"
+                                th:field="${order.orderStatus}">
+                            <option th:each="orderStatus:${allStatus}" th:value="${orderStatus}"
+                                    th:text="${orderStatus.message}"/>
+                        </select>
+                        <button type="submit" class="btn btn-success pull-right">Aktualizuj</button>
+                        </form>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <div class="btn btn-outline-danger btn-block align-middle"><h4><span th:text="${order.orderStatus.message}"></span></h4></div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Zdjęcie</th>
+                    <th>Id</th>
+                    <th>Nazwa</th>
+                    <th>Kategoria</th>
+                    <th>Ilość</th>
+                    <th>Cena</th>
+                    <th>Wartość</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr th:each="productItem:${order.productItems}" th:object="${productItem}">
+                    <td><img style="width:50px; height: 50px" th:if="*{product.picture.fileName != null}"
+                             class="img-thumbnail" th:src="@{|/files/${productItem.product.picture.fileName}|}"/></td>
+                    <td><span th:text="${productItem.product.id}"></span></td>
+                    <td><span
+                            th:utext="|${'<b>'+productItem.product.name+'</b>&lt;br/&gt;'+productItem.product.description}|"></span>
+                    </td>
+                    <td><span th:text="${productItem.product.category.name}"></span></td>
+                    <td><span th:text="${productItem.quantity}"></span></td>
+                    <td><span th:text="${productItem.product.price}"></span></td>
+                    <td><span th:text="${productItem.product.price*productItem.quantity}"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+
+                    <td colspan="2">Suma</td>
+                    <td><span th:text="${order.amount-order.delivery.price}"></span></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="2"><span th:text="${order.delivery.name}"></span></td>
+                    <td><span th:text="${order.delivery.price}"></span></td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="2"><h5>DO ZAPŁATY</h5></td>
+                    <td><h5><span th:text="${order.amount+'zł'}"></span></h5></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+</div>
+<!--footer-->
+<div th:insert="fragments/footer :: footer"></div>
+
+</body>
+</html>
+
+

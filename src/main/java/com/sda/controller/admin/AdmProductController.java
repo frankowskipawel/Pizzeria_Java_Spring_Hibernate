@@ -72,7 +72,7 @@ public class AdmProductController {
 
         int currentPage = page.orElse(1);
 
-        Page<Product> productPage = productService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("paginationNumber"))));
+        Page<Product> productPage = productService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))));
         model.addAttribute("pages", productPage);
         int totalPages = productPage.getTotalPages();
         if (totalPages > 0) {
