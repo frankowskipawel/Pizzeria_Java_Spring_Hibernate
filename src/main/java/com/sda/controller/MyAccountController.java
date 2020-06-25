@@ -6,6 +6,7 @@ import com.sda.entity.User;
 import com.sda.enums.OrderStatus;
 import com.sda.repository.UserRepository;
 import com.sda.service.OrderService;
+import com.sda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -16,10 +17,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,16 +37,12 @@ public class MyAccountController {
     OrderService orderService;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    UserService userService;
 
-    @GetMapping("/home")
-    public String myAccount(Model model){
-
-
-        return "myAccount/home";
-    }
 
     @GetMapping("/orders")
-    public String orders(Model model, @RequestParam("page") Optional<Integer> page){
+    public String orders(Model model, @RequestParam("page") Optional<Integer> page) {
 
         model.addAttribute("selectedMenu", "orders");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
@@ -79,10 +76,45 @@ public class MyAccountController {
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         Order order = orderService.findById(orderId).get();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!order.getUser().getEmail().equals(auth.getName())){return "redirect:/home";}
+        if (!order.getUser().getEmail().equals(auth.getName())) {
+            return "redirect:/home";
+        }
         model.addAttribute("order", order);
         model.addAttribute("allStatus", OrderStatus.values());
 
         return "myAccount/orderDetails";
+    }
+
+    @GetMapping("/myProfile")
+    public String userEdit(Model model, @RequestParam(value = "delete", required = false) Optional<Integer> deleteUserId) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
+        model.addAttribute("selectedMenu", "myProfile");
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findUsersByEmail(auth.getName());
+        model.addAttribute("user", user);
+        return "myAccount/userEdit";
+    }
+
+    @PostMapping("/userEdit")
+    public String employeeEditPost(Model model, @ModelAttribute("user") User user) {
+        model.addAttribute("cartQuantity", cart.getCartQuantity());
+        model.addAttribute("selectedMenu", "myProfile");
+        User foundUser = userService.getUserById(user.getId());
+        foundUser.setFirstName(user.getFirstName());
+        foundUser.setLastName(user.getLastName());
+        foundUser.setAddress(user.getAddress());
+        model.addAttribute("user", foundUser);
+        userService.updateUser(foundUser);
+        System.out.println(user);
+        return "redirect:/myAccount/myProfile";
+    }
+
+    @GetMapping("/deleteAccount")
+    public String deleteAccount(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUsersByEmail(auth.getName());
+        userService.deleteUser(user.getId());
+        auth.setAuthenticated(false);
+        return "redirect:/home";
     }
 }
