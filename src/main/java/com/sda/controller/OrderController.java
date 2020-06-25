@@ -4,6 +4,7 @@ import com.sda.entity.*;
 
 import com.sda.enums.OrderStatus;
 import com.sda.service.*;
+import com.sda.utils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,6 +38,8 @@ public class OrderController {
     DeliveryService deliveryService;
     @Autowired
     PaymentService paymentService;
+    @Autowired
+    EmailUtil emailUtil;
 
     @GetMapping("/deliveryAddress")
     public String deliveryAddress(Model model) {
@@ -104,6 +107,7 @@ public class OrderController {
         orderToSave.setDate(new Date());
         orderToSave.setOrderStatus(OrderStatus.RECEIVED);
         orderService.save(orderToSave);
+        emailUtil.sendEmail(orderToSave);
         cart.getProductItems().clear();
         order.getProductItems().clear();
         return "home";

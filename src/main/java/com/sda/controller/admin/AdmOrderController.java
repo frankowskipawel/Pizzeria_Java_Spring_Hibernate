@@ -4,6 +4,7 @@ import com.sda.entity.Cart;
 import com.sda.entity.Order;
 import com.sda.enums.OrderStatus;
 import com.sda.service.OrderService;
+import com.sda.utils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,8 @@ public class AdmOrderController {
     Cart cart;
     @Autowired
     Environment environment;
+    @Autowired
+    EmailUtil emailUtil;
 
     @GetMapping("orders")
     public String ordersList(Model model, @RequestParam("page") Optional<Integer> page) {
@@ -70,8 +73,14 @@ public class AdmOrderController {
         model.addAttribute("selectedMenu", "orders");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         Order orderFromDB = orderService.findById(order.getId()).get();
-        orderFromDB.setOrderStatus(orderStatus);
-        orderService.save(orderFromDB);
+        if (!orderFromDB.getOrderStatus().equals(orderStatus)) {
+            orderFromDB.setOrderStatus(orderStatus);
+            orderService.save(orderFromDB);
+            emailUtil.sendEmail(orderFromDB);
+        }
+
+
+
         model.addAttribute("order", orderFromDB);
         model.addAttribute("allStatus", OrderStatus.values());
         return "admin/orderDetails";
