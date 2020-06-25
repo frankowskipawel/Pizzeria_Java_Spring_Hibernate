@@ -10,7 +10,7 @@
 
     <div class="row">
         <div class="col-sm-3">
-            <div th:insert="fragments/menu :: menu"></div>
+            <div th:insert="myAccount/menu :: menu"></div>
         </div>
         <div class="col-sm-9">
             <div class="col">
@@ -52,16 +52,7 @@
 
 
                     <div class="col">
-                        <form action="#" th:action="@{/admin/orderDetails}" method="post" th:object="${order}">
-                            <input type="hidden" id="id"  class="form-control" th:field="${order.id}"/>
-                        <h7 >Status zamówienia</h7><br>
-                        <select th:object="${orderStatus}" class="form-control" th:name="message"
-                                th:field="${order.orderStatus}">
-                            <option th:each="orderStatus:${allStatus}" th:value="${orderStatus}"
-                                    th:text="${orderStatus.message}"/>
-                        </select>
-                        <button type="submit" class="btn btn-success pull-right">Aktualizuj</button>
-                        </form>
+
                         <br>
                         <br>
                         <br>

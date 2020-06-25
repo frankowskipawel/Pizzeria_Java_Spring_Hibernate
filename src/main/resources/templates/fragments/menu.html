@@ -3,8 +3,8 @@
 <h3>Panel Administratora</h3>
 <ul class="nav nav-pills flex-column">
     <li class="nav-item">
-            <a th:if="${selectedMenu=='home'}" class="nav-link active" href="/admin/home">Strona główna</a>
-            <a th:unless="${selectedMenu=='home'}" class="nav-link" href="/admin/home">Strona główna</a>
+            <a th:if="${selectedMenu=='home'}" style="font-weight: bold" class="nav-link btn btn-outline-primary" href="/admin/home">Strona główna</a>
+            <a th:unless="${selectedMenu=='home'}" class="nav-link btn btn-outline-primary" href="/admin/home">Strona główna</a>
     </li>
     <!--    <br>-->
 
@@ -35,9 +35,6 @@
             <a th:unless="${selectedMenu=='productsList'}" class="nav-link btn-sm" href="/admin/productsList">Lista produktów</a>
         </li>
     </div>
-
-
-
 
     <button data-toggle="collapse" data-target="#category" class="btn btn-outline-primary">Kategorie</button>
     <div  th:classappend="${selectedMenu == 'categoryAdd' or selectedMenu == 'categoriesList'}  ? 'show'" style="margin-right: 10%; margin-left: 10%" id="category" class="collapse">

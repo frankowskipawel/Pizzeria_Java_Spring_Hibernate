@@ -2,6 +2,7 @@ package com.sda.service;
 
 import com.sda.entity.Delivery;
 import com.sda.entity.Order;
+import com.sda.entity.User;
 import com.sda.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,5 +34,11 @@ public class OrderService {
 
     public Optional<Order> findById(int id){
         return orderRepository.findById(id);
+    }
+
+    public Page<Order> findAllByUserPagination(Pageable pageable, User user) {
+        return orderRepository.findOrdersByUser(pageable, user);
+//        return orderRepository.findAll(pageable);
+
     }
 }

@@ -1,45 +1,60 @@
-package com.sda.controller.admin;
+package com.sda.controller;
 
 import com.sda.entity.Cart;
 import com.sda.entity.Order;
+import com.sda.entity.User;
 import com.sda.enums.OrderStatus;
+import com.sda.repository.UserRepository;
 import com.sda.service.OrderService;
-import com.sda.utils.EmailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/admin")
-public class AdmOrderController {
+@RequestMapping("/myAccount")
+public class MyAccountController {
 
-    @Autowired
-    OrderService orderService;
     @Autowired
     Cart cart;
     @Autowired
     Environment environment;
     @Autowired
-    EmailUtil emailUtil;
+    OrderService orderService;
+    @Autowired
+    UserRepository userRepository;
 
-    @GetMapping("orders")
-    public String ordersList(Model model, @RequestParam("page") Optional<Integer> page) {
+    @GetMapping("/home")
+    public String myAccount(Model model){
+
+
+        return "myAccount/home";
+    }
+
+    @GetMapping("/orders")
+    public String orders(Model model, @RequestParam("page") Optional<Integer> page){
+
         model.addAttribute("selectedMenu", "orders");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         int currentPage = page.orElse(1);
         int quantityPerPage = Integer.parseInt(environment.getProperty("quantityPerPage"));
         Pageable pageable = PageRequest.of(currentPage - 1, quantityPerPage, Sort.by("date").descending());
-        Page<Order> orderPage = orderService.findAllPagination(pageable);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findUsersByEmail(auth.getName());
+        Page<Order> orderPage = orderService.findAllByUserPagination(pageable, user);
 
         model.addAttribute("pages", orderPage);
         int totalPages = orderPage.getTotalPages();
@@ -52,7 +67,9 @@ public class AdmOrderController {
             model.addAttribute("pageNumbers", pageNumbers);
             model.addAttribute("currentPage", page.orElse(1));
         }
-        return "admin/orders";
+
+
+        return "myAccount/orders";
     }
 
     @GetMapping("/orderDetails")
@@ -61,29 +78,11 @@ public class AdmOrderController {
         model.addAttribute("selectedMenu", "orders");
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         Order order = orderService.findById(orderId).get();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (!order.getUser().getEmail().equals(auth.getName())){return "redirect:/home";}
         model.addAttribute("order", order);
         model.addAttribute("allStatus", OrderStatus.values());
 
-        return "admin/orderDetails";
-    }
-
-    @PostMapping("/orderDetails")
-    public String orderStatus(Model model,
-                              @RequestParam("orderStatus") OrderStatus orderStatus,
-                              @ModelAttribute("order") Order order) {
-        model.addAttribute("selectedMenu", "orders");
-        model.addAttribute("cartQuantity", cart.getCartQuantity());
-        Order orderFromDB = orderService.findById(order.getId()).get();
-        if (!orderFromDB.getOrderStatus().equals(orderStatus)) {
-            orderFromDB.setOrderStatus(orderStatus);
-            orderService.save(orderFromDB);
-            emailUtil.sendEmail(orderFromDB);
-        }
-
-
-
-        model.addAttribute("order", orderFromDB);
-        model.addAttribute("allStatus", OrderStatus.values());
-        return "admin/orderDetails";
+        return "myAccount/orderDetails";
     }
 }
