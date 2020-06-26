@@ -1,5 +1,7 @@
 # Pizzeria_Java_Spring_Hibernate
 
+This is an web application for pizzeria created at Java Spring(boot, security, mvc, data hibernate mySQL, thymeleaf, email). I implemented shopping cart, orders, products, employess, customers, categories, deliveries, payments, admin panel, my account, send email etc.
+
 <img src="imagesREADME\1.png"/>
 <img src="imagesREADME\2.png"/>
 <img src="imagesREADME\3.png"/>
