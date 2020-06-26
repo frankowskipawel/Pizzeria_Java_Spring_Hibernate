@@ -79,9 +79,6 @@ public class AdmOrderController {
             orderService.save(orderFromDB);
             emailUtil.sendEmail(orderFromDB);
         }
-
-
-
         model.addAttribute("order", orderFromDB);
         model.addAttribute("allStatus", OrderStatus.values());
         return "admin/orderDetails";

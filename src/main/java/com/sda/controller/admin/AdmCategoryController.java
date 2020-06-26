@@ -3,7 +3,6 @@ package com.sda.controller.admin;
 import com.sda.entity.Cart;
 import com.sda.entity.Category;
 
-import com.sda.entity.User;
 import com.sda.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -56,11 +55,8 @@ public class AdmCategoryController {
     public String getCustomers(Model model, @RequestParam("page") Optional<Integer> page) {
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("selectedMenu", "categoriesList");
-
         int currentPage = page.orElse(1);
-
         Page<Category> categoryPage = categoryService.findAllPagination(PageRequest.of(currentPage - 1, Integer.parseInt(environment.getProperty("quantityPerPage"))));
-
         model.addAttribute("pages", categoryPage);
         int totalPages = categoryPage.getTotalPages();
         if (totalPages > 0) {
@@ -84,7 +80,6 @@ public class AdmCategoryController {
             return "admin/categoryEdit";
         } else {
             model.addAttribute("selectedMenu", "categoriesList");
-
             return "admin/categoriesList";
         }
     }
@@ -102,9 +97,7 @@ public class AdmCategoryController {
             foundCategory.setWeight(category.getWeight());
             model.addAttribute("category", foundCategory);
             categoryService.saveCategory(foundCategory);
-            System.out.println(category);
             return "redirect:/admin/categoriesList";
         }
-
     }
 }

@@ -1,6 +1,5 @@
 package com.sda.service;
 
-import com.sda.entity.Category;
 import com.sda.entity.Delivery;
 import com.sda.repository.DeliveryRepository;
 import org.springframework.beans.factory.annotation.Autowired;

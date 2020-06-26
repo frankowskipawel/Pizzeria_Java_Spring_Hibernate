@@ -2,7 +2,6 @@ package com.sda.controller.admin;
 
 import com.sda.entity.Cart;
 import com.sda.entity.Order;
-import com.sda.repository.OrderRepository;
 import com.sda.repository.RoleRepository;
 import com.sda.service.OrderService;
 import com.sda.service.UserService;
@@ -36,13 +35,9 @@ public class AdmHomeController {
         BigDecimal totalPriceOfOrders = new BigDecimal("0");
         for (Order order : orders) {
             totalPriceOfOrders = totalPriceOfOrders.add(order.getAmount());
-            System.out.println(order.getAmount());
         }
-        System.out.println("totalPriceOfOrders = "+totalPriceOfOrders);
         model.addAttribute("totalPriceOfOrders", totalPriceOfOrders);
 
         return "admin/home";
     }
-
-
 }

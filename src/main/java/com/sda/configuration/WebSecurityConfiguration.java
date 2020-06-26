@@ -29,7 +29,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .passwordEncoder(bCryptPasswordEncoder);
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -58,5 +57,4 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/resources/**", "/static/**", "/css/**", "/js/**", "/images/**");
     }
-
 }

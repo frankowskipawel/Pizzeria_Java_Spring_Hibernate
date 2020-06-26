@@ -32,9 +32,7 @@ public class EmailUtil {
         msg.setText(message);
         Thread thread = new Thread(){
             public void run(){
-                System.out.println("Sending email");
                 javaMailSender.send(msg);
-                System.out.println("Sending done");
             }
         };
         thread.start();

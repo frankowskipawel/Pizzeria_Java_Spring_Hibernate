@@ -14,21 +14,15 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User,Integer> {
 
-    User findByEmail(String email);
     User findById(String id);
 
-
     User save(User user);
-
 
     @Query("SELECT u FROM User u WHERE u.email =:email")
     User findUsersByEmail(String email);
 
-//    Page<User> getAllUserPaginated(Pageable pageable);
-
     Page<User> findAll(Pageable pageable);
 
-//    @Query("SELECT u FROM User u JOIN FETCH Role r ON u.id=r.id WHERE r.role=:role")
     Page<User> findByRolesLike(Pageable pageable, Role role);
 }
 

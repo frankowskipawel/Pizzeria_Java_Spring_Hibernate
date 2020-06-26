@@ -6,22 +6,18 @@
 <body>
 <!--header-->
 <div th:insert="fragments/navbar :: navbar"></div>
-
 <div class="container" style="margin-top:30px; margin-bottom: 30px">
     <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" style="width:25%"></div>
         <br>
     </div>
-
     <div class="row" style="margin-top:30px">
         <div class="col">
             <h3><a th:href="@{/cart/show}" style="color: black" th:text="Produkty "></a> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 <span class="badge" style="background-color: red; color: white" th:text="${cartQuantity}"></span></h3>
             <h7>
                 <div th:each="productItem : ${productItems}">
-
                 <span th:text="${productItem.product.name+' '+#numbers.formatDecimal(productItem.product.price, 1, 'DEFAULT', 2, 'DEFAULT')+'zł ('+productItem.quantity+'szt)'}"></span><br>
-
                 </div>
             </h7>
         </div>
@@ -29,7 +25,6 @@
             <h3>Adres dostawy  <a th:href="@{/myAcount}"
                                      class="btn btn-outline-success" role="button">Zmień</a></h3>
             <h7>
-
                 <span th:text="${user.firstName}"></span><br>
                 <span th:text="${user.lastName}"></span><br>
                 <span th:text="${user.address.street}"></span><br>
@@ -39,15 +34,11 @@
                 <a th:href="@{/order/delivery}"
                    class="btn btn-success pull-right" role="button">Dalej</a>
             </h7>
-
         </div>
     </div>
-
-
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>
-
 </body>
 </html>
 

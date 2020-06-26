@@ -7,7 +7,6 @@
 <!--header-->
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-
     <div class="row">
         <div class="col-sm-3">
             <div th:insert="fragments/menu :: menu"></div>
@@ -15,35 +14,35 @@
         <div class="col-sm-9">
             <h3>Edycja Produktu</h3>
             <br>
-           <div class="form-group">
-            <a class="btn btn-primary btn" th:href="@{/admin/productEdit(delete=${product.id})}">Usuń produkt</a>
-               <br>
-           </div>
+            <div class="form-group">
+                <a class="btn btn-primary btn" th:href="@{/admin/productEdit(delete=${product.id})}">Usuń produkt</a>
+                <br>
+            </div>
             <div class="form-group">
                 <label for="name">Dodaj zdjęcie produktu</label>
-                <form method="POST" enctype="multipart/form-data" action="/admin/productEditfile" th:object="${product}">
-                    <input  type="hidden" th:field="${product.id}"/>
-                    <input  type="hidden"th:field="${product.category}"/>
-                    <input  type="hidden"th:field="${product.price}"/>
-                    <input  type="hidden"th:field="${product.description}"/>
+                <form method="POST" enctype="multipart/form-data" action="/admin/productEditfile"
+                      th:object="${product}">
+                    <input type="hidden" th:field="${product.id}"/>
+                    <input type="hidden" th:field="${product.category}"/>
+                    <input type="hidden" th:field="${product.price}"/>
+                    <input type="hidden" th:field="${product.description}"/>
                     <table>
-
-
-                        <tr><td><input type="file" name="file " class="btn btn-outline-light text-dark"/></td>
-                            <td><input class="btn btn-outline-primary" type="submit" value="Prześlij zdjęcie" /></td></tr>
+                        <tr>
+                            <td><input type="file" name="file " class="btn btn-outline-light text-dark"/></td>
+                            <td><input class="btn btn-outline-primary" type="submit" value="Prześlij zdjęcie"/></td>
+                        </tr>
                     </table>
                 </form>
             </div>
-
             <form action="#" th:action="@{/admin/productEdit}" method="post" th:object="${product}"
                   class="needs-validated" novalidate>
-
                 <div class="form-group" style="width:200px">
-
                     <input type="hidden" id="id_picture" th:field="*{picture.id}"/>
                     <input type="hidden" id="picture" th:field="*{picture.fileName}"/>
-                    <img  th:if="*{picture.fileName != null}" class="img-thumbnail" th:src="@{|/files/*{picture.fileName}|}"/>
-                    <img th:unless="*{picture.fileName != null}" class="img-thumbnail" th:src="@{|/files/nopictures.jpg|}"/>
+                    <img th:if="*{picture.fileName != null}" class="img-thumbnail"
+                         th:src="@{|/files/*{picture.fileName}|}"/>
+                    <img th:unless="*{picture.fileName != null}" class="img-thumbnail"
+                         th:src="@{|/files/nopictures.jpg|}"/>
                 </div>
                 <input type="hidden" id="id" th:field="*{id}"/>
                 <div class="form-group">
@@ -70,7 +69,6 @@
                     <input type="text" id="description" class="form-control" placeholder="Opis"
                            th:field="*{description}"/>
                 </div>
-
                 <br>
                 <button type="submit" class="btn btn-primary">Zapisz</button>
                 <br>

@@ -59,7 +59,6 @@ public class AdmProductController {
             model.addAttribute("product", product);
             return "admin/productAdd";
         } else {
-
             productService.saveProduct(product);
             return "admin/home";
         }

@@ -91,9 +91,7 @@ public class AdmCustomerController {
             foundUser.setAddress(user.getAddress());
             model.addAttribute("user", foundUser);
             userService.updateUser(foundUser);
-            System.out.println(user);
             return "redirect:/admin/customersList";
         }
     }
-
 }

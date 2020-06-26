@@ -49,7 +49,6 @@ public class RegisterController {
                 user.setActive(true);
                 user.getRoles().add(roleRepository.findByRole("USER"));
             }
-            System.out.println(user);
             userService.saveUser(user);
             return "home";
         }

@@ -66,10 +66,7 @@ public class OrderController {
 
     @PostMapping("/payment")
     public String payment(Model model, @RequestParam(value = "optradio", required = false) int deliveryId) {
-        System.out.println(deliveryId);
         Delivery delivery = deliveryService.findById(deliveryId).get();
-        System.out.println(deliveryId);
-
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         model.addAttribute("productItems", cart.getProductItems());
         model.addAttribute("payments", paymentService.findAll());
@@ -87,7 +84,6 @@ public class OrderController {
         model.addAttribute("productItems", cart.getProductItems());
         model.addAttribute("order", order);
         order.setPayment(payment);
-        System.out.println(order);
         return "order/summary";
     }
 
@@ -112,6 +108,4 @@ public class OrderController {
         order.getProductItems().clear();
         return "home";
     }
-
-
 }

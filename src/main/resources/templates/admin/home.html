@@ -7,12 +7,9 @@
 <!--header-->
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-
     <div class="row">
         <div class="col-sm-3">
             <div th:insert="fragments/menu :: menu"></div>
-
-
         </div>
         <div class="col-sm-9">
             <h3>Statystyki</h3>
@@ -22,19 +19,11 @@
             <h7><span th:text="${numberOrders}"></span></h7>
             <h6>Suma wartości wszystkich zamówień</h6>
             <h7><span th:text="${totalPriceOfOrders}+'zł'"></span></h7>
-
-
-<!--            <span th:text="${active}">id</span>-->
-
         </div>
-
     </div>
-
-
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>
-
 </body>
 </html>
 

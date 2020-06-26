@@ -37,5 +37,4 @@ public class Product {
     private String description;
     @ManyToOne
     private Picture picture;
-
 }

@@ -9,7 +9,6 @@
 <script src="https://use.fontawesome.com/c560c025cf.js"></script>
 
 <div class="container" style="margin-top:30px" >
-
     <h2>Menu</h2>
     <br>
     <span th:each="productList : ${productsMap}">
@@ -21,20 +20,15 @@
                     <tr>
                         <th style="min-width: 50px"></th>
                         <th style="width: 80%">Nazwa</th>
-
                         <th style="width: 5%">Cena</th>
                         <th style="width: 5%"></th>
                     </tr>
             </thead>
             <tbody>
-<!--           iteracja właściwa-->
                 <tr th:each="product : ${productList.value}">
-
-
                      <td><img style="width:50px; height: 50px" th:if="${product.picture.fileName != null}" class="img-thumbnail well"
                      th:src="@{|/files/${product.picture.fileName}|}"/>
                      </td>
-
                      <td><h5><span th:text="${product.name}"></span></h5>
                      <span th:text="${product.description}"></span></td>
                      <td><span th:text="${product.price}"></span></td>
@@ -42,20 +36,15 @@
                         <div class="btn-group-vertical">
                             <a th:href="@{/cart/addToCart(productId=${product.id})}"
                                class="btn btn-outline-success" role="button"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-
                         </div>
-
                      </td>
                 </tr>
             </tbody>
          </table>
     </span>
-
-
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>
-
 </body>
 </html>
 

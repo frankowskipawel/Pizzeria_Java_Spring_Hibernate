@@ -37,8 +37,6 @@ public class LoginController {
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         User foundUser = userService.findUsersByEmail(user.getEmail());
         if (foundUser != null && foundUser.getPassword().equals(user.getPassword())) {
-
-            System.out.println("Jesteś zalogowany");
             return "home";
         } else {
             model.addAttribute("error", "Błędy login lub hasło");

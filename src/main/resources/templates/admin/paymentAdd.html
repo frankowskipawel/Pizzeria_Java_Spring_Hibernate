@@ -7,36 +7,27 @@
 <!--header-->
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-
     <div class="row">
         <div class="col-sm-3">
             <div th:insert="fragments/menu :: menu"></div>
-
         </div>
         <div class="col-sm-9">
             <h2>Dodaj nową płatność</h2>
-
-            <form action="#" th:action="@{/admin/paymentAdd}" method="post" th:object="${payment}" class="needs-validated" novalidate>
-
+            <form action="#" th:action="@{/admin/paymentAdd}" method="post" th:object="${payment}"
+                  class="needs-validated" novalidate>
                 <div class="form-group">
-                    <label for="name">Nazwa: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                    <input type="text" id="name"  class="form-control" placeholder="Wpisz nazwę" th:field="*{name}"/>
+                    <label for="name">Nazwa: </label><br><span style="color:red;font-size:12px"
+                                                               th:if="${#fields.hasErrors('name')}"
+                                                               th:errors="*{name}"></span>
+                    <input type="text" id="name" class="form-control" placeholder="Wpisz nazwę" th:field="*{name}"/>
                 </div>
-
-
                 <button type="submit" class="btn btn-primary">Dodaj</button>
             </form>
-
-
         </div>
-
     </div>
-
-
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>
-
 </body>
 </html>
 

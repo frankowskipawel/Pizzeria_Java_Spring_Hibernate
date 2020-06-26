@@ -1,6 +1,5 @@
 package com.sda.service;
 
-import com.sda.entity.Delivery;
 import com.sda.entity.Payment;
 import com.sda.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -36,6 +36,5 @@ public class Cart {
             totalPrice=totalPrice.add(quantity.multiply(price));
         }
         return totalPrice;
-
     }
 }

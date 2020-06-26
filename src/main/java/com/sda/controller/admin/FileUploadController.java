@@ -37,17 +37,6 @@ public class FileUploadController {
     @Autowired
     Cart cart;
 
-//	@GetMapping("/")
-//	public String listUploadedFiles(Model model) throws IOException {
-//
-//		model.addAttribute("files", storageService.loadAll().map(
-//				path -> MvcUriComponentsBuilder.fromMethodName(com.sda.controller.admin.FileUploadController.class,
-//						"serveFile", path.getFileName().toString()).build().toUri().toString())
-//				.collect(Collectors.toList()));
-//
-//		return "uploadForm";
-//	}
-
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -72,7 +61,6 @@ public class FileUploadController {
                 path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                         "serveFile", path.getFileName().toString()).build().toUri().toString())
                 .collect(Collectors.toList()));
-
 
         return "redirect:/admin/productAdd?picture=" + storageService.getNameLastStorageFile();
     }
@@ -104,5 +92,4 @@ public class FileUploadController {
     public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
         return ResponseEntity.notFound().build();
     }
-
 }

@@ -11,32 +11,28 @@
     <div class="row">
         <div class="col-sm-3">
             <div th:insert="fragments/menu :: menu"></div>
-
         </div>
         <div class="col-sm-9">
-
-
-            <form action="#" th:action="@{/admin/categoryEdit}" method="post" th:object="${category}" class="needs-validated" novalidate>
-
-                <input type="hidden" id="id"  class="form-control" th:field="*{id}"/>
+            <form action="#" th:action="@{/admin/categoryEdit}" method="post" th:object="${category}"
+                  class="needs-validated" novalidate>
+                <input type="hidden" id="id" class="form-control" th:field="*{id}"/>
                 <div class="form-group">
-                    <label for="name">Nazwa: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                    <input type="text" id="name"  class="form-control" placeholder="Wpisz nazwę" th:field="*{name}"/>
+                    <label for="name">Nazwa: </label><br><span style="color:red;font-size:12px"
+                                                               th:if="${#fields.hasErrors('name')}"
+                                                               th:errors="*{name}"></span>
+                    <input type="text" id="name" class="form-control" placeholder="Wpisz nazwę" th:field="*{name}"/>
                 </div>
                 <div class="form-group">
-                    <label for="name">Waga: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}"></span>
-                    <input type="text" id="weight"  class="form-control" placeholder="Wpisz wagę kategorii" th:field="*{weight}"/>
+                    <label for="name">Waga: </label><br><span style="color:red;font-size:12px"
+                                                              th:if="${#fields.hasErrors('weight')}"
+                                                              th:errors="*{weight}"></span>
+                    <input type="text" id="weight" class="form-control" placeholder="Wpisz wagę kategorii"
+                           th:field="*{weight}"/>
                 </div>
-
                 <button type="submit" class="btn btn-primary">Zapisz</button>
             </form>
-
-
         </div>
-
     </div>
-
-
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>

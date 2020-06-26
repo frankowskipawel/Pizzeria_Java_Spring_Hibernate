@@ -4,15 +4,15 @@
     <br>
     <ul class="nav nav-pills flex-column">
         <li class="nav-item">
-            <a th:if="${selectedMenu=='home'}" style="font-weight: bold" class="nav-link btn btn-outline-primary" href="/myAccount/myProfile">Mój profil</a>
-            <a th:unless="${selectedMenu=='home'}" class="nav-link btn btn-outline-primary" href="/myAccount/myProfile">Mój profil</a>
+            <a th:if="${selectedMenu=='home'}" style="font-weight: bold" class="nav-link btn btn-outline-primary"
+               href="/myAccount/myProfile">Mój profil</a>
+            <a th:unless="${selectedMenu=='home'}" class="nav-link btn btn-outline-primary" href="/myAccount/myProfile">Mój
+                profil</a>
         </li>
-        <!--    <br>-->
-
         <li class="nav-item">
-            <a th:if="${selectedMenu=='orders'}" style="font-weight: bold" class="nav-link btn btn-outline-primary" href="/myAccount/orders">Zamówienia</a>
+            <a th:if="${selectedMenu=='orders'}" style="font-weight: bold" class="nav-link btn btn-outline-primary"
+               href="/myAccount/orders">Zamówienia</a>
             <a th:unless="${selectedMenu=='orders'}" class="nav-link btn btn-outline-primary" href="/myAccount/orders">Zamówienia</a>
         </li>
-
     </ul>
 </menu>

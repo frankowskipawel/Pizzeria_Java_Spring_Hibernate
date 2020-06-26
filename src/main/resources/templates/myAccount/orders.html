@@ -7,16 +7,11 @@
 <!--header-->
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-
     <div class="row">
         <div class="col-sm-3">
             <div th:insert="myAccount/menu :: menu"></div>
-
-
         </div>
         <div class="col-sm-9">
-
-
             <h2>Zamówienia</h2>
             <br>
             <table class="table table-hover">
@@ -27,32 +22,22 @@
                     <th>Kwota</th>
                     <th>Status</th>
                     <th></th>
-
                 </tr>
                 </thead>
                 <tbody>
-                <!--                <tr th:each="user : ${users}">-->
-
                 <tr th:each="order:${pages}" th:object="${orders}">
-
                     <td><span th:text="${order.id}"></span></td>
                     <td><span th:text="${#dates.format(order.date, 'dd-MM-yyyy')}"></span></td>
                     <td><span th:text="${order.amount}"></span></td>
                     <td><span th:text="${order.orderStatus.message}"></span></td>
-
                     <td>
                         <div class="btn-group-vertical">
-                            <!--                            <button id="btn-editEmail" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal" class="btn pull-right middle btn-primary"><span class="glyphicon glyphicon-pencil"></span>  Edit</button>-->
-
-                            <!--                            <button type="button" class="btn btn-primary btn-sm" >Edytuj</button>-->
                             <a th:href="@{/myAccount/orderDetails(orderId=${order.id})}" class="btn btn-primary btn-sm" role="button">Szczegóły</a>
-
                         </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
-
             <div class="container" align="center">
                 <div class="btn-group" align="center">
 

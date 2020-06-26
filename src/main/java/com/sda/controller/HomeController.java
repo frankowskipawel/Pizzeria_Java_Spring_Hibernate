@@ -24,31 +24,22 @@ public class HomeController {
     Cart cart;
 
 
-
-
     @GetMapping("/home")
     public String home(Model model) {
         model.addAttribute("cartQuantity", cart.getCartQuantity());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Set<GrantedAuthority> authoritiesList = new HashSet<>();
         authoritiesList.addAll(auth.getAuthorities());
-        System.out.println("role = "+authoritiesList);
-        System.out.println(auth.getName());
-        System.out.println("1234567890 CART = "+cart);
         return "home";
     }
 
     @GetMapping("delivery")
     public String delivery(){
-
         return "/delivery";
     }
 
     @GetMapping("sale")
     public String sale(){
-
         return "/sale";
     }
-
-
 }

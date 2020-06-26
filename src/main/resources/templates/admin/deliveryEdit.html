@@ -7,28 +7,30 @@
 <!--header-->
 <div th:insert="fragments/navbar :: navbar"></div>
 <div class="container">
-
     <div class="row">
         <div class="col-sm-3">
             <div th:insert="fragments/menu :: menu"></div>
-
         </div>
         <div class="col-sm-9">
             <h2>Edycja dostawy</h2>
             <br>
             <a class="btn btn-primary btn" th:href="@{/admin/deliveryEdit(delete=${deliveryId})}">Usuń</a>
             <br><br>
-            <form action="#" th:action="@{/admin/deliveryAdd}" method="post" th:object="${delivery}" class="needs-validated" novalidate>
-                <input type="hidden" id="id"  class="form-control" th:field="*{id}"/>
+            <form action="#" th:action="@{/admin/deliveryAdd}" method="post" th:object="${delivery}"
+                  class="needs-validated" novalidate>
+                <input type="hidden" id="id" class="form-control" th:field="*{id}"/>
                 <div class="form-group">
-                    <label for="name">Nazwa: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-                    <input type="text" id="name"  class="form-control" placeholder="Wpisz nazwę" th:field="*{name}"/>
+                    <label for="name">Nazwa: </label><br><span style="color:red;font-size:12px"
+                                                               th:if="${#fields.hasErrors('name')}"
+                                                               th:errors="*{name}"></span>
+                    <input type="text" id="name" class="form-control" placeholder="Wpisz nazwę" th:field="*{name}"/>
                 </div>
                 <div class="form-group">
-                    <label for="price">Cena: </label><br><span style="color:red;font-size:12px" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
-                    <input type="text" id="price"  class="form-control" placeholder="Wpisz cenę" th:field="*{price}"/>
+                    <label for="price">Cena: </label><br><span style="color:red;font-size:12px"
+                                                               th:if="${#fields.hasErrors('price')}"
+                                                               th:errors="*{price}"></span>
+                    <input type="text" id="price" class="form-control" placeholder="Wpisz cenę" th:field="*{price}"/>
                 </div>
-
                 <button type="submit" class="btn btn-primary">Zapisz</button>
             </form>
         </div>
@@ -36,7 +38,6 @@
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>
-
 </body>
 </html>
 

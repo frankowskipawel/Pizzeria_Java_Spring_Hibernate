@@ -12,11 +12,8 @@
         <div class="col-sm-3">
             <div th:insert="fragments/menu :: menu"></div>
 
-
         </div>
         <div class="col-sm-9">
-
-
             <h2>Kategorie produktów</h2>
             <br>
             <table class="table table-hover">
@@ -30,21 +27,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!--                <tr th:each="user : ${users}">-->
 
                 <tr th:each="category:${pages}" th:object="${categories}">
-
                     <td><span th:text="${category.id}"></span></td>
                     <td><span th:text="${category.name}"></span></td>
                     <td><span th:text="${category.weight}"></span></td>
-
                     <td>
                         <div class="btn-group-vertical">
-                            <!--                            <button id="btn-editEmail" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal" class="btn pull-right middle btn-primary"><span class="glyphicon glyphicon-pencil"></span>  Edit</button>-->
-
-                            <!--                            <button type="button" class="btn btn-primary btn-sm" >Edytuj</button>-->
-                            <a th:href="@{/admin/categoryEdit(categoryId=${category.id})}" class="btn btn-primary btn-sm" role="button">Edit</a>
-
+                            <a th:href="@{/admin/categoryEdit(categoryId=${category.id})}"
+                               class="btn btn-primary btn-sm" role="button">Edit</a>
                         </div>
                     </td>
                 </tr>
@@ -52,12 +43,8 @@
             </table>
 
             <div th:insert="fragments/pagination :: pagination"></div>
-            <!--            <div th:insert="fragments/_editUser :: editUserModal"/>-->
         </div>
-
     </div>
-
-
 </div>
 <!--footer-->
 <div th:insert="fragments/footer :: footer"></div>

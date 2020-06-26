@@ -56,7 +56,6 @@ public class AdmEmployeeController {
             userService.saveUser(user);
             return "redirect:/admin/employeesList";
         }
-
     }
 
     @GetMapping("/employeesList")
@@ -125,10 +124,7 @@ public class AdmEmployeeController {
             foundUser.setAddress(user.getAddress());
             model.addAttribute("user", foundUser);
             userService.updateUser(foundUser);
-            System.out.println(user);
             return "redirect:/admin/employeesList";
         }
     }
-
-
 }

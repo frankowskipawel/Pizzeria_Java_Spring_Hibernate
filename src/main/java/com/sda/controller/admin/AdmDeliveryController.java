@@ -1,7 +1,6 @@
 package com.sda.controller.admin;
 
 import com.sda.entity.Cart;
-import com.sda.entity.Category;
 import com.sda.entity.Delivery;
 import com.sda.service.DeliveryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,9 +104,7 @@ public class AdmDeliveryController {
             foundDelivery.setPrice(delivery.getPrice());
             model.addAttribute("category", foundDelivery);
             deliveryService.save(foundDelivery);
-            System.out.println(delivery);
             return "redirect:/admin/deliveriesList";
         }
-
     }
 }

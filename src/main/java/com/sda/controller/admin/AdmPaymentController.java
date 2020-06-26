@@ -1,7 +1,6 @@
 package com.sda.controller.admin;
 
 import com.sda.entity.Cart;
-import com.sda.entity.Delivery;
 import com.sda.entity.Payment;
 import com.sda.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,9 +102,7 @@ public class AdmPaymentController {
             fountPayment.setName(payment.getName());
             model.addAttribute("category", fountPayment);
             paymentService.save(fountPayment);
-            System.out.println(payment);
             return "redirect:/admin/paymentsList";
         }
-
     }
 }

@@ -39,11 +39,8 @@ public class MenuController {
             } else {
                 productsMap.get(product.getCategory().getName()).add(product);
             }
-
         }
-
         model.addAttribute("productsMap", productsMap);
-
 
         return "menu";
     }
