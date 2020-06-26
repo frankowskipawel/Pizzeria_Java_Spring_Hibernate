@@ -38,7 +38,17 @@ public class HomeController {
         return "home";
     }
 
+    @GetMapping("delivery")
+    public String delivery(){
 
+        return "/delivery";
+    }
+
+    @GetMapping("sale")
+    public String sale(){
+
+        return "/sale";
+    }
 
 
 }

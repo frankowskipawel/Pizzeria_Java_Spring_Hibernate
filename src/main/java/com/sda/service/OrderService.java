@@ -1,6 +1,6 @@
 package com.sda.service;
 
-import com.sda.entity.Delivery;
+
 import com.sda.entity.Order;
 import com.sda.entity.User;
 import com.sda.repository.OrderRepository;
@@ -27,7 +27,6 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-
     public Page<Order> findAllPagination(Pageable pageable) {
         return orderRepository.findAll(pageable);
     }
@@ -38,7 +37,7 @@ public class OrderService {
 
     public Page<Order> findAllByUserPagination(Pageable pageable, User user) {
         return orderRepository.findOrdersByUser(pageable, user);
-//        return orderRepository.findAll(pageable);
-
     }
+
+
 }

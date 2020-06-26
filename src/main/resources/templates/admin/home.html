@@ -14,9 +14,17 @@
 
 
         </div>
-        <div class="col-sm-9">.col
+        <div class="col-sm-9">
+            <h3>Statystyki</h3>
+            <br>
+            <br>
+            <h6>Ilość wszystkich zamówień</h6>
+            <h7><span th:text="${numberOrders}"></span></h7>
+            <h6>Suma wartości wszystkich zamówień</h6>
+            <h7><span th:text="${totalPriceOfOrders}+'zł'"></span></h7>
 
-            <span th:text="${active}">id</span>
+
+<!--            <span th:text="${active}">id</span>-->
 
         </div>
 
