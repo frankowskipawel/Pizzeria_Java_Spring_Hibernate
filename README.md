@@ -4,9 +4,9 @@ This is an web application for pizzeria created at Java Spring(boot, security, m
 
 https://pizzeriamyproject.herokuapp.com/home
 
-Admin Panel.
-jankowalski@example.com
-password
+Admin Panel.<br>
+login : jankowalski@example.com<br>
+password : password<br>
 
 <img src="imagesREADME\1.png"/>
 <img src="imagesREADME\2.png"/>
