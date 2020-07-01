@@ -4,6 +4,10 @@ This is an web application for pizzeria created at Java Spring(boot, security, m
 
 https://pizzeriamyproject.herokuapp.com/home
 
+Admin Panel.
+jankowalski@example.com
+password
+
 <img src="imagesREADME\1.png"/>
 <img src="imagesREADME\2.png"/>
 <img src="imagesREADME\3.png"/>
