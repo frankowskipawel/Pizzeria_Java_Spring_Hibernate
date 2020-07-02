@@ -27,7 +27,7 @@
             <tbody>
                 <tr th:each="product : ${productList.value}">
                      <td><img style="width:50px; height: 50px" th:if="${product.picture.fileName != null}" class="img-thumbnail well"
-                     th:src="@{|/files/${product.picture.fileName}|}"/>
+                     th:src="@{|http://wegiel.home.pl/pizzeria/${product.picture.fileName}|}"/>
                      </td>
                      <td><h5><span th:text="${product.name}"></span></h5>
                      <span th:text="${product.description}"></span></td>

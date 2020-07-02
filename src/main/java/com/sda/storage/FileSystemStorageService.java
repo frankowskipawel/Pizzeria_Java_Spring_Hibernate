@@ -10,6 +10,7 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -56,6 +57,24 @@ public class  FileSystemStorageService implements StorageService {
 				picture.setFileName(picture.getId()+"_"+picture.getFileName());
 				pictureService.savePicture(picture);
 				nameLastFile=picture.getFileName();
+
+				//save to FTP
+				Thread thread = new Thread(){
+					public void run(){
+						FtpService ftpService = null;
+						try {
+							ftpService = new FtpService();
+							System.out.println("Upload start!");
+							ftpService.uploadFileToFTP(new File(String.valueOf(rootLocation.resolve(picture.getId()+"_"+filename))), picture);
+							System.out.println("Upload done!");
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				};
+				thread.start();
+
+
 			}
 		}
 		catch (IOException e) {
