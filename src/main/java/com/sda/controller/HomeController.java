@@ -33,13 +33,13 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("delivery")
+    @GetMapping("/delivery")
     public String delivery(){
-        return "/delivery";
+        return "delivery";
     }
 
-    @GetMapping("sale")
+    @GetMapping("/sale")
     public String sale(){
-        return "/sale";
+        return "sale";
     }
 }
